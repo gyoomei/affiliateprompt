@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>AffiliatePrompt — Magic Prompt Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0b0f;--bg2:#12131a;--bg3:#1a1b26;--border:#2a2d3a;--text:#e8eaf0;--text2:#8b8fa8;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:rgba(139,92,246,0.1);--green:#10b981;--green-bg:rgba(16,185,129,0.1);--pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);--orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,0.3)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:20px 16px}
+
+/* Header */
+.header{text-align:center;padding:40px 0 32px}
+.header h1{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.header p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
+
+/* Product Cards */
+.section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.product-card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center}
+.product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.product-card.selected{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 20px rgba(139,92,246,0.15)}
+.product-card .emoji{font-size:28px;margin-bottom:8px}
+.product-card .name{font-size:13px;font-weight:600;margin-bottom:4px}
+.product-card .type{font-size:11px;color:var(--text2)}
+
+/* Style Cards */
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.style-card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px 12px;cursor:pointer;transition:all .2s;text-align:center}
+.style-card:hover{border-color:var(--accent)}
+.style-card.selected{border-color:var(--accent);background:var(--accent-bg)}
+.style-card .icon{font-size:22px;margin-bottom:6px}
+.style-card .name{font-size:12px;font-weight:600;margin-bottom:2px}
+.style-card .desc{font-size:10px;color:var(--text2)}
+
+/* Color Pills */
+.color-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.color-pill{background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all .2s;font-weight:500}
+.color-pill:hover{border-color:var(--accent)}
+.color-pill.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent2)}
+
+/* Generate Button */
+.generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px}
+.generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,0.3)}
+.generate-btn:active{transform:translateY(0)}
+.generate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+/* Result Card */
+.result-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-top:20px;overflow:hidden;display:none}
+.result-card.show{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.result-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.result-header h3{font-size:15px;font-weight:600}
+.result-header .badge{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500}
+.badge-style{background:var(--accent-bg);color:var(--accent2)}
+.badge-color{background:var(--pink-bg);color:var(--pink)}
+.result-body{padding:20px}
+.prompt-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.prompt-text{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font-size:13px;line-height:1.7;font-family:'JetBrains Mono',monospace;color:var(--text);word-break:break-all;position:relative;max-height:200px;overflow-y:auto}
+.negative-text{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;font-size:11px;line-height:1.5;font-family:'JetBrains Mono',monospace;color:var(--text2);margin-top:12px}
+.result-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.action-btn{flex:1;padding:10px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;border:none;min-width:120px}
+.copy-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
+.copy-btn:hover{background:rgba(16,185,129,0.2)}
+.download-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,0.3)}
+.download-btn:hover{background:rgba(245,158,11,0.2)}
+.generate-img-btn{background:var(--accent-bg);color:var(--accent2);border:1px solid rgba(139,92,246,0.3)}
+.generate-img-btn:hover{background:rgba(139,92,246,0.2)}
+
+/* Seed & Meta */
+.result-meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--text2)}
+.result-meta span{display:flex;align-items:center;gap:4px}
+
+/* Toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
+.toast.show{opacity:1}
+
+/* Batch Section */
+.batch-section{margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
+.batch-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+.batch-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all .2s}
+.batch-item:hover{border-color:var(--accent)}
+.batch-item .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.batch-item .top .label{font-size:13px;font-weight:600}
+.batch-item .top .meta{font-size:11px;color:var(--text2)}
+.batch-item .preview{font-size:11px;color:var(--text2);line-height:1.5;max-height:40px;overflow:hidden;font-family:'JetBrains Mono',monospace}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--text2)}
+.footer a{color:var(--accent2);text-decoration:none}
+
+/* Mobile */
+@media(max-width:640px){
+  .product-grid{grid-template-columns:1fr 1fr 1fr}
+  .style-grid{grid-template-columns:1fr 1fr}
+  .result-actions{flex-direction:column}
+  .action-btn{min-width:auto}
+  .header h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>🪄 AffiliatePrompt</h1>
+  <p>Generate professional AI prompts for affiliate product photography. One click → copy-paste to any image generator.</p>
+</div>
+
+<!-- Product Selection -->
+<div class="section-title">📦 Produk</div>
+<div class="product-grid" id="products"></div>
+
+<!-- Style Selection -->
+<div class="section-title">🎨 Style Foto</div>
+<div class="style-grid" id="styles"></div>
+
+<!-- Color Selection -->
+<div class="section-title">🎨 Warna</div>
+<div class="color-row" id="colors"></div>
+
+<!-- Generate Button -->
+<button class="generate-btn" id="generateBtn" onclick="generate()">
+  <span>✨</span> Generate Magic Prompt
+</button>
+
+<!-- Result -->
+<div class="result-card" id="resultCard">
+  <div class="result-header">
+    <h3 id="resultTitle">📸 Product — Style</h3>
+    <div style="display:flex;gap:6px">
+      <span class="badge badge-style" id="resultStyle">Style</span>
+      <span class="badge badge-color" id="resultColor">Color</span>
+    </div>
+  </div>
+  <div class="result-body">
+    <div class="prompt-label">🎯 Prompt</div>
+    <div class="prompt-text" id="promptText"></div>
+    
+    <div class="prompt-label" style="margin-top:16px">🚫 Negative Prompt</div>
+    <div class="negative-text" id="negativeText"></div>
+    
+    <div class="result-meta">
+      <span>🎲 Seed: <b id="seedVal">-</b></span>
+      <span>📐 1024×1365</span>
+      <span>🤖 Flux</span>
+    </div>
+    
+    <div class="result-actions">
+      <button class="action-btn copy-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
+      <button class="action-btn generate-img-btn" onclick="generateImage()">🖼️ Generate Image</button>
+      <button class="action-btn download-btn" onclick="copyNegative()">🚫 Copy Negative</button>
+    </div>
+  </div>
+</div>
+
+<!-- Batch Generation -->
+<div class="batch-section">
+  <div class="section-title">⚡ Batch Generate</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Generate 5 prompts sekaligus dengan style berbeda-beda.</p>
+  <button class="generate-btn" style="background:linear-gradient(135deg,#7c3aed,#ec4899)" onclick="generateBatch()">
+    <span>⚡</span> Generate 5 Prompts
+  </button>
+  <div class="batch-grid" id="batchGrid"></div>
+</div>
+
+<div class="footer">
+  Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a> — Affiliate Shopee Toolkit
+</div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+
+const PRODUCTS = {
+  alana_bergo: {
+    name: "ALANA BERGO", fullName: "ALANA BERGO TieBymin", emoji: "🧕",
+    type: "Bergo Instant", desc: "Hijab instan bergo dengan tali, praktis & syar'i",
+    colors: ["hitam","coklat","navy","maroon","hijau army","dusty pink","salem"],
+    material: "kaos rayon premium, lembut dan adem",
+    shopeeLink: "https://s.shopee.co.id/gNZ2aAfcz"
+  },
+  pashmina_kaos: {
+    name: "Pashmina Rayon", fullName: "Pashmina Kaos Rayon", emoji: "🧣",
+    type: "Pashmina", desc: "Pashmina bahan kaos rayon, lembut, adem, mudah diatur",
+    colors: ["hitam","putih","sage","dusty pink","lavender","coklat susu","broken white"],
+    material: "kaos rayon premium, stretchy dan tidak mudah kusut",
+    shopeeLink: "https://s.shopee.co.id/8ATZzrWOqj"
+  },
+  bergo_zalika: {
+    name: "Bergo Zalika", fullName: "Hijab Bergo Zalika", emoji: "🕌",
+    type: "Bergo", desc: "Hijab bergo simple, pet antem, cocok sehari-hari",
+    colors: ["hitam","coklat","navy","maroon","hijau botol","dusty pink"],
+    material: "kaos premium, nyaman dipakai seharian",
+    shopeeLink: "https://s.shopee.co.id/1BJpf8OtDy"
+  }
+};
+
+const STYLES = {
+  lifestyle: {
+    name: "Lifestyle", icon: "☕", desc: "Natural, influencer vibes",
+    templates: [
+      "A beautiful young Indonesian woman wearing {desc} in {color}, walking in a modern minimalist cafe with warm natural lighting, soft bokeh background, candid lifestyle photography, Instagram aesthetic, 85mm lens, golden hour",
+      "Stunning portrait of a young Indonesian hijabi woman wearing {desc} in {color}, sitting in a cozy aesthetic cafe, reading a book, soft window light, natural makeup, warm color grading, shot on Sony A7III, 50mm f/1.4",
+      "Gorgeous Indonesian hijabi wearing {desc} in {color}, in a minimalist living room with plants, natural daylight, clean aesthetic, lifestyle photography, warm and cozy atmosphere, Instagram influencer style",
+      "Professional fashion photo of an Indonesian woman wearing {desc} in {color}, at a rooftop terrace with city skyline, sunset golden hour, warm orange tones, editorial fashion photography, confident pose",
+      "Beautiful Indonesian woman wearing {desc} in {color}, strolling through a modern urban street with palm trees, golden hour sunlight, warm tones, candid street style photography, bokeh background"
+    ]
+  },
+  studio: {
+    name: "Studio", icon: "📸", desc: "Professional, clean background",
+    templates: [
+      "Professional studio portrait of a beautiful Indonesian woman wearing {desc} in {color}, clean white background, soft studio lighting, fashion catalog photography, high-end fashion editorial, 4K quality",
+      "High-end fashion photography of an Indonesian hijabi model wearing {desc} in {color}, minimalist studio setting, dramatic lighting, luxury brand aesthetic, professional fashion shoot",
+      "Elegant studio portrait of a young Indonesian woman wearing {desc} in {color}, soft gradient background, professional beauty lighting, fashion catalog style, clean and polished look",
+      "Commercial product photography of {desc} in {color} worn by a professional Indonesian model, studio lighting, white seamless background, fashion e-commerce style, crisp detail",
+      "Fashion editorial studio shot of an Indonesian woman wearing {desc} in {color}, dramatic side lighting, dark moody background, high fashion aesthetic, editorial quality"
+    ]
+  },
+  casual: {
+    name: "Casual", icon: "🛍️", desc: "Daily, relatable vibes",
+    templates: [
+      "Casual everyday photo of a young Indonesian woman wearing {desc} in {color}, at a traditional Indonesian market, natural lighting, authentic lifestyle, relatable daily outfit, warm tones",
+      "Natural candid photo of an Indonesian hijabi woman wearing {desc} in {color}, shopping at a modern mall, clean lighting, casual outfit of the day, Instagram story aesthetic",
+      "Everyday lifestyle photo of a young Indonesian mother wearing {desc} in {color}, at a cozy warung, warm afternoon light, authentic family moment, casual and relatable",
+      "Casual portrait of an Indonesian university student wearing {desc} in {color}, campus setting, natural daylight, youthful and fresh, everyday hijab style",
+      "Relatable daily photo of an Indonesian woman wearing {desc} in {color}, cooking in a modern kitchen, warm home lighting, authentic lifestyle, cozy atmosphere"
+    ]
+  },
+  outdoor: {
+    name: "Outdoor", icon: "🌿", desc: "Nature, adventure",
+    templates: [
+      "Stunning outdoor portrait of an Indonesian woman wearing {desc} in {color}, in a lush green tropical garden, golden hour sunlight filtering through leaves, natural beauty, warm earth tones",
+      "Beautiful Indonesian hijabi wearing {desc} in {color}, standing in a field of flowers, soft morning light, dreamy atmosphere, nature photography, pastel tones",
+      "Adventure-style photo of an Indonesian woman wearing {desc} in {color}, at a scenic mountain viewpoint, dramatic landscape background, golden hour, outdoor fashion photography",
+      "Beach portrait of an Indonesian woman wearing {desc} in {color}, soft ocean breeze, sunset golden hour, warm tropical tones, lifestyle fashion photography, natural beauty",
+      "Nature-inspired portrait of an Indonesian hijabi wearing {desc} in {color}, in a bamboo forest, dappled sunlight, earth tones, peaceful atmosphere"
+    ]
+  },
+  minimalist: {
+    name: "Minimalis", icon: "⬜", desc: "Clean, product focus",
+    templates: [
+      "Minimalist fashion portrait of an Indonesian woman wearing {desc} in {color}, clean neutral background, soft diffused lighting, focus on fabric texture, high-end fashion photography, simple and elegant",
+      "Clean minimalist photo of {desc} in {color} on an Indonesian model, solid beige background, professional studio lighting, fashion product photography, emphasis on material quality",
+      "Scandinavian-inspired minimal portrait of an Indonesian hijabi wearing {desc} in {color}, white wall background, natural window light, clean lines, modern fashion photography",
+      "High-key fashion photo of an Indonesian woman wearing {desc} in {color}, bright clean background, soft even lighting, fresh and modern, product-focused composition",
+      "Artistic minimalist portrait of an Indonesian model wearing {desc} in {color}, single color background matching the hijab, creative lighting, fashion art photography"
+    ]
+  },
+  editorial: {
+    name: "Editorial", icon: "📰", desc: "Magazine, high fashion",
+    templates: [
+      "High fashion editorial portrait of an Indonesian woman wearing {desc} in {color}, dramatic Vogue-style lighting, bold makeup, striking pose, luxury fashion photography, magazine cover quality",
+      "Fashion editorial photo of an Indonesian hijabi model wearing {desc} in {color}, artistic composition, dramatic shadows, high contrast, modern modest fashion editorial, publication quality",
+      "Editorial fashion spread of an Indonesian woman wearing {desc} in {color}, cinematic color grading, moody atmosphere, strong styling, professional art direction",
+      "Avant-garde fashion portrait of an Indonesian model wearing {desc} in {color}, creative lighting setup, artistic shadows, high fashion aesthetic, bold composition",
+      "Luxury fashion editorial of an Indonesian hijabi wearing {desc} in {color}, rich textures, dramatic draping, professional styling, haute couture photography"
+    ]
+  }
+};
+
+const QUALITY_SUFFIX = ", professional photography, high resolution, sharp focus, detailed fabric texture, natural skin, realistic, 8K UHD";
+const NEGATIVE = "ugly, deformed, disfigured, bad anatomy, bad proportions, blurry, low quality, pixelated, noise, grain, text, watermark, signature, logo, brand name, extra limbs, extra fingers, missing fingers, fused fingers, bad hands, bad feet, bad face, asymmetric face, nude, revealing, cartoon, anime, illustration";
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+
+let selectedProduct = 'alana_bergo';
+let selectedStyle = 'lifestyle';
+let selectedColor = null;
+let currentPrompt = '';
+let currentSeed = 0;
+let batchResults = [];
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+
+function init() {
+  renderProducts();
+  renderStyles();
+  renderColors();
+}
+
+function renderProducts() {
+  const grid = document.getElementById('products');
+  grid.innerHTML = Object.entries(PRODUCTS).map(([key, p]) => `
+    <div class="product-card ${key === selectedProduct ? 'selected' : ''}" onclick="selectProduct('${key}')">
+      <div class="emoji">${p.emoji}</div>
+      <div class="name">${p.name}</div>
+      <div class="type">${p.type}</div>
+    </div>
+  `).join('');
+}
+
+function renderStyles() {
+  const grid = document.getElementById('styles');
+  grid.innerHTML = Object.entries(STYLES).map(([key, s]) => `
+    <div class="style-card ${key === selectedStyle ? 'selected' : ''}" onclick="selectStyle('${key}')">
+      <div class="icon">${s.icon}</div>
+      <div class="name">${s.name}</div>
+      <div class="desc">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderColors() {
+  const product = PRODUCTS[selectedProduct];
+  const row = document.getElementById('colors');
+  row.innerHTML = product.colors.map(c => `
+    <div class="color-pill ${c === selectedColor ? 'selected' : ''}" onclick="selectColor('${c}')">${c}</div>
+  `).join('');
+}
+
+function selectProduct(key) {
+  selectedProduct = key;
+  selectedColor = null;
+  renderProducts();
+  renderColors();
+}
+
+function selectStyle(key) {
+  selectedStyle = key;
+  renderStyles();
+}
+
+function selectColor(color) {
+  selectedColor = color;
+  renderColors();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GENERATE
+// ═══════════════════════════════════════════════════════════════
+
+function generatePrompt(productKey, styleKey, color) {
+  const product = PRODUCTS[productKey];
+  const style = STYLES[styleKey];
+  const template = style.templates[Math.floor(Math.random() * style.templates.length)];
+  const seed = Math.floor(Math.random() * 999999);
+  
+  const prompt = template
+    .replace(/\{desc\}/g, product.desc)
+    .replace(/\{name\}/g, product.fullName)
+    .replace(/\{color\}/g, color)
+    .replace(/\{material\}/g, product.material) + QUALITY_SUFFIX;
+  
+  return { prompt, seed, product: product.fullName, style: style.name, color, shopeeLink: product.shopeeLink };
+}
+
+function generate() {
+  const color = selectedColor || PRODUCTS[selectedProduct].colors[Math.floor(Math.random() * PRODUCTS[selectedProduct].colors.length)];
+  selectedColor = color;
+  renderColors();
+  
+  const result = generatePrompt(selectedProduct, selectedStyle, color);
+  currentPrompt = result.prompt;
+  currentSeed = result.seed;
+  
+  document.getElementById('resultTitle').textContent = `📸 ${result.product}`;
+  document.getElementById('resultStyle').textContent = result.style;
+  document.getElementById('resultColor').textContent = result.color;
+  document.getElementById('promptText').textContent = result.prompt;
+  document.getElementById('negativeText').textContent = NEGATIVE;
+  document.getElementById('seedVal').textContent = result.seed;
+  document.getElementById('resultCard').classList.add('show');
+  
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function generateBatch() {
+  const colors = PRODUCTS[selectedProduct].colors;
+  const styleKeys = Object.keys(STYLES);
+  batchResults = [];
+  
+  for (let i = 0; i < 5; i++) {
+    const styleKey = styleKeys[i % styleKeys.length];
+    const color = colors[i % colors.length];
+    batchResults.push(generatePrompt(selectedProduct, styleKey, color));
+  }
+  
+  const grid = document.getElementById('batchGrid');
+  grid.innerHTML = batchResults.map((r, i) => `
+    <div class="batch-item" onclick="showBatchItem(${i})">
+      <div class="top">
+        <span class="label">${STYLES[Object.keys(STYLES)[i % 6]].icon} ${r.style} — ${r.color}</span>
+        <span class="meta">🎲 ${r.seed}</span>
+      </div>
+      <div class="preview">${r.prompt.substring(0, 120)}...</div>
+    </div>
+  `).join('');
+  
+  grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function showBatchItem(index) {
+  const r = batchResults[index];
+  currentPrompt = r.prompt;
+  currentSeed = r.seed;
+  
+  document.getElementById('resultTitle').textContent = `📸 ${r.product}`;
+  document.getElementById('resultStyle').textContent = r.style;
+  document.getElementById('resultColor').textContent = r.color;
+  document.getElementById('promptText').textContent = r.prompt;
+  document.getElementById('negativeText').textContent = NEGATIVE;
+  document.getElementById('seedVal').textContent = r.seed;
+  document.getElementById('resultCard').classList.add('show');
+  
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function copyPrompt() {
+  navigator.clipboard.writeText(currentPrompt).then(() => showToast('Prompt copied! 📋'));
+}
+
+function copyNegative() {
+  navigator.clipboard.writeText(NEGATIVE).then(() => showToast('Negative prompt copied! 🚫'));
+}
+
+function generateImage() {
+  const encoded = encodeURIComponent(currentPrompt);
+  const url = `https://image.pollinations.ai/prompt/${encoded}?width=1024&height=1365&seed=${currentSeed}&model=flux&nologo=true&enhance=true`;
+  window.open(url, '_blank');
+  showToast('Opening image generator... 🖼️');
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// Init
+init();
+</script>
+</body>
+</html>
