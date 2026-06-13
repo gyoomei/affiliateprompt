@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>AffiliateFit — Virtual Try-On untuk Affiliate</title>
+<title>AffiliateFit — Virtual Try-On Gratis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -16,6 +16,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .header{text-align:center;padding:40px 0 32px}
 .header h1{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .header p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
+.header .free-badge{display:inline-block;background:var(--green-bg);color:var(--green);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;margin-top:8px;border:1px solid rgba(16,185,129,0.3)}
 
 /* Upload Area */
 .upload-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
@@ -35,21 +36,17 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .settings h3{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .setting-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .setting-row label{font-size:13px;font-weight:500;min-width:100px}
-.setting-row input,.setting-row select{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
-.setting-row input:focus,.setting-row select:focus{outline:none;border-color:var(--accent)}
+.setting-row select,.setting-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
+.setting-row select:focus,.setting-row input:focus{outline:none;border-color:var(--accent)}
 
-/* API Key Section */
-.api-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
-.api-section h3{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.api-section p{font-size:12px;color:var(--text2);margin-bottom:12px}
-.api-section .key-row{display:flex;gap:8px}
-.api-section input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;font-family:'JetBrains Mono',monospace}
-.api-section input:focus{outline:none;border-color:var(--accent)}
-.api-section .save-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3);padding:10px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.api-section .save-btn:hover{background:rgba(16,185,129,0.2)}
-.api-status{font-size:12px;margin-top:8px;display:flex;align-items:center;gap:4px}
-.api-status.ok{color:var(--green)}
-.api-status.error{color:var(--red)}
+/* How It Works */
+.how-it-works{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.how-it-works h3{font-size:14px;font-weight:600;margin-bottom:16px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{text-align:center;padding:12px}
+.step .num{width:28px;height:28px;background:var(--accent-bg);color:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
+.step .title{font-size:12px;font-weight:600;margin-bottom:4px}
+.step .desc{font-size:11px;color:var(--text2)}
 
 /* Generate Button */
 .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px}
@@ -72,7 +69,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .result-header h3{font-size:15px;font-weight:600}
 .result-body{padding:20px;text-align:center}
 .result-body img{max-width:100%;max-height:500px;border-radius:var(--radius-sm);box-shadow:var(--shadow)}
-.result-actions{display:flex;gap:10px;margin-top:16px;justify-content:center}
+.result-actions{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
 .action-btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;border:none}
 .download-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
 .download-btn:hover{background:rgba(16,185,129,0.2)}
@@ -87,15 +84,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
 .toast.show{opacity:1}
 
-/* How It Works */
-.how-it-works{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
-.how-it-works h3{font-size:14px;font-weight:600;margin-bottom:16px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.step{text-align:center;padding:12px}
-.step .num{width:28px;height:28px;background:var(--accent-bg);color:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
-.step .title{font-size:12px;font-weight:600;margin-bottom:4px}
-.step .desc{font-size:11px;color:var(--text2)}
-
 /* Footer */
 .footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--text2)}
 .footer a{color:var(--accent2);text-decoration:none}
@@ -107,7 +95,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
   .header h1{font-size:22px}
   .setting-row{flex-direction:column;align-items:stretch}
   .setting-row label{min-width:auto}
-  .api-section .key-row{flex-direction:column}
   .result-actions{flex-direction:column}
 }
 </style>
@@ -117,7 +104,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 <div class="header">
   <h1>👗 AffiliateFit</h1>
-  <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional model pakai produk affiliate kamu</p>
+  <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional model pakai produk kamu</p>
+  <div class="free-badge">✨ 100% GRATIS — Tanpa API Key</div>
 </div>
 
 <!-- How It Works -->
@@ -127,7 +115,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <div class="step">
       <div class="num">1</div>
       <div class="title">Upload Produk</div>
-      <div class="desc">Foto produk dari Shopee</div>
+      <div class="desc">Foto hijab/bergo/baju</div>
     </div>
     <div class="step">
       <div class="num">2</div>
@@ -145,17 +133,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
       <div class="desc">Pakai di Threads/IG</div>
     </div>
   </div>
-</div>
-
-<!-- API Key -->
-<div class="api-section">
-  <h3>🔑 FAL.AI API Key</h3>
-  <p>Dapatkan API key gratis di <a href="https://fal.ai" target="_blank" style="color:var(--accent2)">fal.ai</a> → $5 free credits (~100 gambar). Key disimpan di browser kamu saja.</p>
-  <div class="key-row">
-    <input type="password" id="apiKey" placeholder="fal-xxxxxxxxxxxxxxxxxxxxxxxxxxxx">
-    <button class="save-btn" onclick="saveApiKey()">💾 Simpan</button>
-  </div>
-  <div class="api-status" id="apiStatus"></div>
 </div>
 
 <!-- Upload Section -->
@@ -185,15 +162,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <div class="settings">
   <h3>⚙️ Pengaturan</h3>
   <div class="setting-row">
-    <label>Model</label>
+    <label>AI Model</label>
     <select id="modelSelect">
-      <option value="fal-ai/cat-vton">CAT-VTON (Recommended, ~$0.05)</option>
-      <option value="fal-ai/idm-vton">IDM-VTON (Higher quality, ~$0.10)</option>
+      <option value="yisol/IDM-VTON">IDM-VTON (Recommended)</option>
+      <option value="Kwai-Kolors/Kolors-Virtual-Try-On">Kolors Try-On</option>
     </select>
   </div>
   <div class="setting-row">
     <label>Deskripsi</label>
-    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo warna hitam, pashmina dusty pink">
+    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo hitam, pashmina dusty pink">
   </div>
 </div>
 
@@ -205,7 +182,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <!-- Progress -->
 <div class="progress" id="progress">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-text" id="progressText">Mengupload gambar...</div>
+  <div class="progress-text" id="progressText">Menyiapkan...</div>
 </div>
 
 <!-- Error -->
@@ -227,13 +204,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 <div class="footer">
   Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a> — Affiliate Shopee Toolkit<br>
-  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://fal.ai" target="_blank">FAL.AI</a> Virtual Try-On</span>
+  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://huggingface.co" target="_blank">Hugging Face</a> Spaces (Free)</span>
 </div>
 </div>
 
 <div class="toast" id="toast">Copied!</div>
 
-<script>
+<script type="module">
+import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.5.2/dist/index.min.js";
+
 // ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
@@ -244,43 +223,11 @@ let garmentBase64 = null;
 let modelBase64 = null;
 let resultImageUrl = null;
 
-// ═══════════════════════════════════════════════════════════════
-// API KEY
-// ═══════════════════════════════════════════════════════════════
-
-function init() {
-  const savedKey = localStorage.getItem('fal_api_key');
-  if (savedKey) {
-    document.getElementById('apiKey').value = savedKey;
-    updateApiStatus(true);
-  }
-}
-
-function saveApiKey() {
-  const key = document.getElementById('apiKey').value.trim();
-  if (!key) {
-    updateApiStatus(false, 'Masukkan API key');
-    return;
-  }
-  localStorage.setItem('fal_api_key', key);
-  updateApiStatus(true);
-  showToast('API key saved! 🔑');
-}
-
-function updateApiStatus(ok, msg) {
-  const status = document.getElementById('apiStatus');
-  if (ok) {
-    status.className = 'api-status ok';
-    status.textContent = '✓ API key tersimpan';
-  } else {
-    status.className = 'api-status error';
-    status.textContent = '✗ ' + (msg || 'API key tidak valid');
-  }
-}
-
-function getApiKey() {
-  return localStorage.getItem('fal_api_key') || '';
-}
+// Make functions global
+window.handleUpload = handleUpload;
+window.removeImage = removeImage;
+window.generate = generate;
+window.downloadResult = downloadResult;
 
 // ═══════════════════════════════════════════════════════════════
 // IMAGE UPLOAD
@@ -334,47 +281,107 @@ function removeImage(type) {
 // ═══════════════════════════════════════════════════════════════
 
 async function generate() {
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    showError('Masukkan FAL.AI API key terlebih dahulu!');
-    return;
-  }
-  
-  if (!garmentBase64) {
+  if (!garmentFile) {
     showError('Upload foto produk terlebih dahulu!');
     return;
   }
   
-  if (!modelBase64) {
+  if (!modelFile) {
     showError('Upload foto model terlebih dahulu!');
     return;
   }
   
-  const model = document.getElementById('modelSelect').value;
+  const spaceId = document.getElementById('modelSelect').value;
+  const desc = document.getElementById('garmentDesc').value.trim() || 'clothing';
   
   // UI states
   hideError();
   hideResult();
-  showProgress('Menyiapkan gambar...', 10);
+  showProgress('Menghubungkan ke AI...', 10);
   document.getElementById('generateBtn').disabled = true;
   
   try {
-    // Step 1: Upload images to FAL storage
-    showProgress('Mengupload foto produk...', 20);
-    const garmentUrl = await uploadToFal(garmentBase64, apiKey);
+    // Connect to Gradio Space
+    showProgress('Menghubungkan ke ' + spaceId + '...', 20);
+    const client = await Client.connect(spaceId, {
+      events: ["status"],
+    });
+    
+    // Upload images
+    showProgress('Mengupload foto produk...', 30);
+    const garmentBlob = await fetch(garmentBase64).then(r => r.blob());
     
     showProgress('Mengupload foto model...', 40);
-    const modelUrl = await uploadToFal(modelBase64, apiKey);
+    const modelBlob = await fetch(modelBase64).then(r => r.blob());
     
-    // Step 2: Call virtual try-on API
-    showProgress('AI sedang memproses... (30-60 detik)', 60);
-    const result = await callVirtualTryOn(modelUrl, garmentUrl, model, apiKey);
+    // Call the API
+    showProgress('AI sedang memproses... (30-60 detik)', 50);
     
-    // Step 3: Show result
+    let result;
+    
+    if (spaceId === "yisol/IDM-VTON") {
+      // IDM-VTON API: [human_img, garm_img, garment_des, is_checked, is_checked_crop, denoise_steps, seed]
+      result = await client.predict("/tryon", {
+        human_img: modelBlob,
+        garm_img: garmentBlob,
+        garment_des: desc,
+        is_checked: true,
+        is_checked_crop: false,
+        denoise_steps: 30,
+        seed: 42,
+      });
+    } else if (spaceId === "Kwai-Kolors/Kolors-Virtual-Try-On") {
+      // Kolors API: [human_img, garment_img]
+      result = await client.predict("/tryon", {
+        human_img: modelBlob,
+        garment_img: garmentBlob,
+      });
+    } else {
+      // Generic: try first two args
+      result = await client.predict("/tryon", {
+        human_img: modelBlob,
+        garm_img: garmentBlob,
+      });
+    }
+    
+    // Process result
     showProgress('Selesai!', 100);
+    
+    let imageUrl = null;
+    
+    // Handle different response formats
+    if (result?.data) {
+      const data = result.data;
+      
+      // Check if it's an image object with url
+      for (const item of Array.isArray(data) ? data : [data]) {
+        if (item?.url) {
+          imageUrl = item.url;
+          break;
+        }
+        if (item?.image?.url) {
+          imageUrl = item.image.url;
+          break;
+        }
+        // Sometimes it's a list of images
+        if (Array.isArray(item)) {
+          for (const sub of item) {
+            if (sub?.url) {
+              imageUrl = sub.url;
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+    if (!imageUrl) {
+      throw new Error('Tidak ada gambar yang dihasilkan. Coba lagi atau gunakan model lain.');
+    }
+    
     setTimeout(() => {
       hideProgress();
-      showResult(result);
+      showResult(imageUrl);
     }, 500);
     
   } catch (err) {
@@ -384,103 +391,6 @@ async function generate() {
   }
   
   document.getElementById('generateBtn').disabled = false;
-}
-
-async function uploadToFal(base64, apiKey) {
-  // Convert base64 to blob
-  const response = await fetch(base64);
-  const blob = await response.blob();
-  
-  // Upload to FAL storage
-  const formData = new FormData();
-  formData.append('file', blob, 'image.png');
-  
-  const uploadRes = await fetch('https://fal.run/api/storage/upload', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Key ' + apiKey,
-    },
-    body: formData,
-  });
-  
-  if (!uploadRes.ok) {
-    const err = await uploadRes.text();
-    throw new Error('Upload gagal: ' + err);
-  }
-  
-  const data = await uploadRes.json();
-  return data.url;
-}
-
-async function callVirtualTryOn(modelUrl, garmentUrl, model, apiKey) {
-  const desc = document.getElementById('garmentDesc').value.trim();
-  
-  // Use queue API for longer-running models
-  const queueRes = await fetch('https://queue.fal.run/' + model, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Key ' + apiKey,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model_image: modelUrl,
-      garment_image: garmentUrl,
-      garment_des: desc || 'clothing',
-    }),
-  });
-  
-  if (!queueRes.ok) {
-    const err = await queueRes.text();
-    throw new Error('API error: ' + err);
-  }
-  
-  const queueData = await queueRes.json();
-  const requestId = queueData.request_id;
-  
-  if (!requestId) {
-    throw new Error('No request ID returned');
-  }
-  
-  // Poll for result
-  let attempts = 0;
-  const maxAttempts = 60; // 60 * 2s = 120s max
-  
-  while (attempts < maxAttempts) {
-    await new Promise(r => setTimeout(r, 2000));
-    attempts++;
-    
-    const progress = 60 + (attempts / maxAttempts) * 35;
-    showProgress(`AI sedang memproses... (${attempts * 2}s)`, progress);
-    
-    const statusRes = await fetch('https://queue.fal.run/' + model + '/requests/' + requestId + '/status', {
-      headers: { 'Authorization': 'Key ' + apiKey },
-    });
-    
-    if (!statusRes.ok) continue;
-    
-    const statusData = await statusRes.json();
-    
-    if (statusData.status === 'COMPLETED') {
-      // Get the actual result
-      const resultRes = await fetch('https://queue.fal.run/' + model + '/requests/' + requestId, {
-        headers: { 'Authorization': 'Key ' + apiKey },
-      });
-      
-      const resultData = await resultRes.json();
-      
-      // FAL returns image URL in different fields depending on model
-      const imageUrl = resultData.image?.url || resultData.images?.[0]?.url || resultData.output?.image?.url;
-      
-      if (!imageUrl) throw new Error('No image in response');
-      return imageUrl;
-    }
-    
-    if (statusData.status === 'FAILED') {
-      throw new Error('Processing failed: ' + (statusData.error || 'Unknown error'));
-    }
-  }
-  
-  throw new Error('Timeout: processing took too long');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -533,9 +443,6 @@ function showToast(msg) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
-
-// Init
-init();
 </script>
 </body>
 </html>
