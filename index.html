@@ -7,14 +7,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0b0f;--bg2:#12131a;--bg3:#1a1b26;--border:#2a2d3a;--text:#e8eaf0;--text2:#8b8fa8;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:rgba(139,92,246,0.1);--green:#10b981;--green-bg:rgba(16,185,129,0.1);--pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);--orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);--red:#ef4444;--red-bg:rgba(239,68,68,0.1);--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,0.3)}
+:root{--bg:#0a0b0f;--bg2:#12131a;--bg3:#1a1b26;--border:#2a2d3a;--text:#e8eaf0;--text2:#8b8fa8;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:rgba(139,92,246,.1);--green:#10b981;--green-bg:rgba(16,185,129,.1);--pink:#ec4899;--pink-bg:rgba(236,72,153,.1);--orange:#f59e0b;--orange-bg:rgba(245,158,11,.1);--red:#ef4444;--red-bg:rgba(239,68,68,.1);--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,.3)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh}
 .container{max-width:1000px;margin:0 auto;padding:20px 16px}
-.header{text-align:center;padding:40px 0 32px}
-.header h1{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.header{text-align:center;padding:32px 0 24px}
+.header h1{font-size:28px;font-weight:700;letter-spacing:-.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .header p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
-.header .free-badge{display:inline-block;background:var(--green-bg);color:var(--green);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;margin-top:8px;border:1px solid rgba(16,185,129,0.3)}
+.header .badges{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-free{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.badge-mode{background:var(--accent-bg);color:var(--accent2);border:1px solid rgba(139,92,246,.3)}
+
+/* Mode Tabs */
+.mode-tabs{display:flex;gap:8px;margin-bottom:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px}
+.mode-tab{flex:1;padding:12px;text-align:center;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;border:2px solid transparent}
+.mode-tab:hover{background:var(--accent-bg)}
+.mode-tab.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent2)}
+.mode-tab .icon{font-size:20px;margin-bottom:4px}
+.mode-tab .desc{font-size:10px;color:var(--text2);font-weight:400}
+
+/* Upload */
 .upload-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
 .upload-box{background:var(--bg2);border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .upload-box:hover{border-color:var(--accent);background:var(--accent-bg)}
@@ -26,58 +39,70 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .upload-box input{display:none}
 .upload-box .remove-btn{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:none}
 .upload-box.has-image .remove-btn{display:block}
+
+/* Settings */
 .settings{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
-.settings h3{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.settings h3{font-size:14px;font-weight:600;margin-bottom:16px}
 .setting-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .setting-row label{font-size:13px;font-weight:500;min-width:100px}
-.setting-row select,.setting-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
-.setting-row select:focus,.setting-row input:focus{outline:none;border-color:var(--accent)}
-.how-it-works{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
-.how-it-works h3{font-size:14px;font-weight:600;margin-bottom:16px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.step{text-align:center;padding:12px}
-.step .num{width:28px;height:28px;background:var(--accent-bg);color:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
-.step .title{font-size:12px;font-weight:600;margin-bottom:4px}
-.step .desc{font-size:11px;color:var(--text2)}
+.setting-row select,.setting-row input,.setting-row input[type=range]{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
+.setting-row input[type=range]{padding:0;height:6px;-webkit-appearance:none;appearance:none;background:var(--border);border:none;border-radius:3px}
+.setting-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer}
+.range-val{font-size:12px;color:var(--accent2);min-width:40px;text-align:center;font-family:'JetBrains Mono',monospace}
+
+/* Position Controls */
+.position-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.pos-label{font-size:11px;color:var(--text2);text-align:center}
+
+/* Canvas */
+.canvas-container{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:24px;text-align:center;display:none}
+.canvas-container.show{display:block}
+.canvas-wrapper{position:relative;display:inline-block;max-width:100%;cursor:crosshair}
+.canvas-wrapper canvas{max-width:100%;height:auto;border-radius:var(--radius-sm)}
+.canvas-hint{font-size:11px;color:var(--text2);margin-top:8px}
+
+/* Generate */
 .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px}
-.generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,0.3)}
-.generate-btn:active{transform:translateY(0)}
-.generate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,.3)}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Progress */
 .progress{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px;display:none}
 .progress.show{display:block;animation:slideUp .3s ease}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .progress-bar{width:100%;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:12px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));border-radius:3px;transition:width .3s;width:0%}
-.progress-text{font-size:13px;color:var(--text2);text-align:center}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));border-radius:3px;transition:width .3s}
+
+/* Result */
 .result{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-top:20px;overflow:hidden;display:none}
 .result.show{display:block;animation:slideUp .3s ease}
-.result-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.result-header{padding:16px 20px;border-bottom:1px solid var(--border)}
 .result-header h3{font-size:15px;font-weight:600}
 .result-body{padding:20px;text-align:center}
 .result-body img{max-width:100%;max-height:500px;border-radius:var(--radius-sm);box-shadow:var(--shadow)}
 .result-actions{display:flex;gap:10px;margin-top:16px;justify-content:center;flex-wrap:wrap}
 .action-btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;border:none}
-.download-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
-.download-btn:hover{background:rgba(16,185,129,0.2)}
-.retry-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,0.3)}
-.retry-btn:hover{background:rgba(245,158,11,0.2)}
-.error{background:var(--red-bg);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;color:var(--red);display:none;white-space:pre-wrap}
+.download-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.retry-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,.3)}
+
+.error{background:var(--red-bg);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;color:var(--red);display:none;white-space:pre-wrap}
 .error.show{display:block}
+.debug-info{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-top:12px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);max-height:150px;overflow-y:auto;display:none;white-space:pre-wrap}
+.debug-info.show{display:block}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
 .toast.show{opacity:1}
 .footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--text2)}
 .footer a{color:var(--accent2);text-decoration:none}
 .section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .section-title span:last-child{flex:1;height:1px;background:var(--border)}
-.debug-info{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-top:12px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);max-height:200px;overflow-y:auto;display:none}
-.debug-info.show{display:block}
 @media(max-width:640px){
   .upload-section{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
+  .mode-tabs{flex-direction:column}
   .header h1{font-size:22px}
   .setting-row{flex-direction:column;align-items:stretch}
   .setting-row label{min-width:auto}
   .result-actions{flex-direction:column}
+  .position-controls{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -87,68 +112,104 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <div class="header">
   <h1>👗 AffiliateFit</h1>
   <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional</p>
-  <div class="free-badge">✨ 100% GRATIS — Tanpa API Key</div>
-</div>
-
-<div class="how-it-works">
-  <h3>🪄 Cara Kerja</h3>
-  <div class="steps">
-    <div class="step"><div class="num">1</div><div class="title">Upload Produk</div><div class="desc">Foto hijab/bergo/baju</div></div>
-    <div class="step"><div class="num">2</div><div class="title">Upload Model</div><div class="desc">Foto orang/model</div></div>
-    <div class="step"><div class="num">3</div><div class="title">Generate</div><div class="desc">AI gabungkan otomatis</div></div>
-    <div class="step"><div class="num">4</div><div class="title">Download</div><div class="desc">Pakai di Threads/IG</div></div>
+  <div class="badges">
+    <span class="badge badge-free">✨ 100% GRATIS</span>
+    <span class="badge badge-mode" id="modeBadge">👕 Virtual Try-On</span>
   </div>
 </div>
 
-<div class="section-title"><span>📸 Upload Foto</span><span></span></div>
+<!-- Mode Selection -->
+<div class="mode-tabs">
+  <div class="mode-tab active" id="tabClothing" onclick="setMode('clothing')">
+    <div class="icon">👕</div>
+    <div>Pakaian</div>
+    <div class="desc">Baju, hijab, dress, jacket</div>
+  </div>
+  <div class="mode-tab" id="tabAccessory" onclick="setMode('accessory')">
+    <div class="icon">👜</div>
+    <div>Tas & Aksesoris</div>
+    <div class="desc">Tas, sepatu, perhiasan</div>
+  </div>
+</div>
 
+<!-- Upload -->
+<div class="section-title"><span>📸 Upload Foto</span><span></span></div>
 <div class="upload-section">
   <div class="upload-box" id="garmentBox" onclick="document.getElementById('garmentInput').click()">
-    <input type="file" id="garmentInput" accept="image/*" onchange="handleUpload(event, 'garment')">
+    <input type="file" id="garmentInput" accept="image/*" onchange="handleUpload(event,'garment')">
     <button class="remove-btn" onclick="event.stopPropagation();removeImage('garment')">×</button>
-    <div class="icon">🧕</div>
-    <div class="label">Foto Produk</div>
-    <div class="hint">Hijab, bergo, pashmina, baju</div>
+    <div class="icon" id="garmentIcon">🧕</div>
+    <div class="label" id="garmentLabel">Foto Produk</div>
+    <div class="hint" id="garmentHint">Hijab, baju, dress, dll</div>
   </div>
   <div class="upload-box" id="modelBox" onclick="document.getElementById('modelInput').click()">
-    <input type="file" id="modelInput" accept="image/*" onchange="handleUpload(event, 'model')">
+    <input type="file" id="modelInput" accept="image/*" onchange="handleUpload(event,'model')">
     <button class="remove-btn" onclick="event.stopPropagation();removeImage('model')">×</button>
     <div class="icon">👤</div>
     <div class="label">Foto Model</div>
-    <div class="hint">Foto orang yang mau dipakaikan</div>
+    <div class="hint">Foto orang/model</div>
   </div>
 </div>
 
-<div class="settings">
+<!-- Settings -->
+<div class="settings" id="settingsClothing">
   <h3>⚙️ Pengaturan</h3>
   <div class="setting-row">
-    <label>AI Model</label>
-    <select id="modelSelect">
-      <option value="yisol/IDM-VTON">IDM-VTON (Recommended)</option>
-    </select>
-  </div>
-  <div class="setting-row">
     <label>Deskripsi</label>
-    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo hitam">
+    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo hitam, baju kurung navy">
   </div>
 </div>
 
+<div class="settings" id="settingsAccessory" style="display:none">
+  <h3>⚙️ Posisi & Ukuran</h3>
+  <div class="setting-row">
+    <label>Posisi X</label>
+    <input type="range" id="posX" min="0" max="100" value="60">
+    <span class="range-val" id="posXVal">60%</span>
+  </div>
+  <div class="setting-row">
+    <label>Posisi Y</label>
+    <input type="range" id="posY" min="0" max="100" value="40">
+    <span class="range-val" id="posYVal">40%</span>
+  </div>
+  <div class="setting-row">
+    <label>Ukuran</label>
+    <input type="range" id="prodSize" min="10" max="80" value="30">
+    <span class="range-val" id="prodSizeVal">30%</span>
+  </div>
+  <div class="setting-row">
+    <label>Transparansi</label>
+    <input type="range" id="prodOpacity" min="50" max="100" value="100">
+    <span class="range-val" id="prodOpacityVal">100%</span>
+  </div>
+</div>
+
+<!-- Canvas Preview (for accessory mode) -->
+<div class="canvas-container" id="canvasContainer">
+  <div class="section-title"><span>👁️ Preview</span><span></span></div>
+  <div class="canvas-wrapper">
+    <canvas id="previewCanvas"></canvas>
+  </div>
+  <div class="canvas-hint">💡 Geser slider untuk mengatur posisi produk</div>
+</div>
+
+<!-- Generate -->
 <button class="generate-btn" id="generateBtn" onclick="generate()">
-  <span>✨</span> Generate Virtual Try-On
+  <span>✨</span> Generate
 </button>
 
 <div class="progress" id="progress">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-text" id="progressText">Menyiapkan...</div>
+  <div class="progress-text" id="progressText"></div>
 </div>
 
 <div class="error" id="error"></div>
 <div class="debug-info" id="debugInfo"></div>
 
 <div class="result" id="result">
-  <div class="result-header"><h3>✨ Hasil Virtual Try-On</h3></div>
+  <div class="result-header"><h3>✨ Hasil</h3></div>
   <div class="result-body">
-    <img id="resultImage" src="" alt="Result">
+    <img id="resultImage" src="">
     <div class="result-actions">
       <button class="action-btn download-btn" onclick="downloadResult()">⬇️ Download</button>
       <button class="action-btn retry-btn" onclick="generate()">🔄 Generate Lagi</button>
@@ -158,23 +219,41 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 <div class="footer">
   Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a><br>
-  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://huggingface.co/yisol/IDM-VTON" target="_blank">IDM-VTON</a> on Hugging Face</span>
+  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://huggingface.co" target="_blank">Hugging Face</a> Spaces</span>
 </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const SPACE_URL = 'https://yisol-idm-vton.hf.space';
+const RMBG_URL = 'https://briaai-bria-rmbg-2-0.hf.space';
 
-let garmentFile = null;
-let modelFile = null;
-let garmentBase64 = null;
-let modelBase64 = null;
+let mode = 'clothing';
+let garmentFile = null, modelFile = null;
+let garmentBase64 = null, modelBase64 = null;
+let garmentImg = null, modelImg = null;
 let resultImageUrl = null;
 
 // ═══════════════════════════════════════════════════════════════
-// IMAGE UPLOAD
+// MODE
+// ═══════════════════════════════════════════════════════════════
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(m === 'clothing' ? 'tabClothing' : 'tabAccessory').classList.add('active');
+  document.getElementById('modeBadge').textContent = m === 'clothing' ? '👕 Virtual Try-On' : '👜 Product Placement';
+  document.getElementById('settingsClothing').style.display = m === 'clothing' ? '' : 'none';
+  document.getElementById('settingsAccessory').style.display = m === 'accessory' ? '' : 'none';
+  document.getElementById('canvasContainer').classList.toggle('show', m === 'accessory' && garmentBase64 && modelBase64);
+  document.getElementById('garmentIcon').textContent = m === 'clothing' ? '🧕' : '👜';
+  document.getElementById('garmentLabel').textContent = m === 'clothing' ? 'Foto Pakaian' : 'Foto Produk';
+  document.getElementById('garmentHint').textContent = m === 'clothing' ? 'Hijab, baju, dress, jacket' : 'Tas, sepatu, aksesoris';
+  if (m === 'accessory' && garmentBase64 && modelBase64) updatePreview();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UPLOAD
 // ═══════════════════════════════════════════════════════════════
 
 function handleUpload(event, type) {
@@ -188,8 +267,18 @@ function handleUpload(event, type) {
     if (!img) { img = document.createElement('img'); box.appendChild(img); }
     img.src = base64;
     box.classList.add('has-image');
-    if (type === 'garment') { garmentFile = file; garmentBase64 = base64; }
-    else { modelFile = file; modelBase64 = base64; }
+    
+    // Load as Image object for canvas
+    const imgObj = new Image();
+    imgObj.onload = function() {
+      if (type === 'garment') { garmentFile = file; garmentBase64 = base64; garmentImg = imgObj; }
+      else { modelFile = file; modelBase64 = base64; modelImg = imgObj; }
+      if (mode === 'accessory' && garmentBase64 && modelBase64) {
+        document.getElementById('canvasContainer').classList.add('show');
+        updatePreview();
+      }
+    };
+    imgObj.src = base64;
   };
   reader.readAsDataURL(file);
 }
@@ -199,264 +288,233 @@ function removeImage(type) {
   const img = box.querySelector('img');
   if (img) img.remove();
   box.classList.remove('has-image');
-  if (type === 'garment') { garmentFile = null; garmentBase64 = null; document.getElementById('garmentInput').value = ''; }
-  else { modelFile = null; modelBase64 = null; document.getElementById('modelInput').value = ''; }
+  if (type === 'garment') { garmentFile = null; garmentBase64 = null; garmentImg = null; document.getElementById('garmentInput').value = ''; }
+  else { modelFile = null; modelBase64 = null; modelImg = null; document.getElementById('modelInput').value = ''; }
+  document.getElementById('canvasContainer').classList.remove('show');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// GRADIO API — Direct HTTP (no library needed)
+// CANVAS PREVIEW (Accessory mode)
+// ═══════════════════════════════════════════════════════════════
+
+function updatePreview() {
+  if (!modelImg || !garmentImg) return;
+  const canvas = document.getElementById('previewCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Scale model to max 600px wide
+  const maxW = 600;
+  const scale = Math.min(maxW / modelImg.width, 1);
+  canvas.width = modelImg.width * scale;
+  canvas.height = modelImg.height * scale;
+  
+  // Draw model
+  ctx.drawImage(modelImg, 0, 0, canvas.width, canvas.height);
+  
+  // Calculate product position & size
+  const pX = parseInt(document.getElementById('posX').value) / 100;
+  const pY = parseInt(document.getElementById('posY').value) / 100;
+  const pSize = parseInt(document.getElementById('prodSize').value) / 100;
+  const pOpacity = parseInt(document.getElementById('prodOpacity').value) / 100;
+  
+  const prodW = canvas.width * pSize;
+  const prodH = prodW * (garmentImg.height / garmentImg.width);
+  const prodX = (canvas.width - prodW) * pX;
+  const prodY = (canvas.height - prodH) * pY;
+  
+  ctx.globalAlpha = pOpacity;
+  ctx.drawImage(garmentImg, prodX, prodY, prodW, prodH);
+  ctx.globalAlpha = 1;
+}
+
+// Slider events
+['posX','posY','prodSize','prodOpacity'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    document.getElementById(id + 'Val').textContent = this.value + '%';
+    updatePreview();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// GRADIO API
 // ═══════════════════════════════════════════════════════════════
 
 async function uploadFile(file, spaceUrl) {
   const formData = new FormData();
   formData.append('files', file);
-  
-  const res = await fetch(spaceUrl + '/upload', {
-    method: 'POST',
-    body: formData,
-  });
-  
+  const res = await fetch(spaceUrl + '/upload', { method: 'POST', body: formData });
   if (!res.ok) throw new Error('Upload gagal: ' + res.status);
   const data = await res.json();
   if (!data || !data[0]) throw new Error('Upload return kosong');
-  return data[0]; // returns the file path on server
+  return data[0];
 }
 
 async function gradioCall(spaceUrl, endpoint, data) {
-  // Step 1: Submit the job
   const submitRes = await fetch(spaceUrl + '/call' + endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ data: data }),
+    body: JSON.stringify({ data }),
   });
+  if (!submitRes.ok) throw new Error('Submit gagal: ' + submitRes.status);
+  const { event_id } = await submitRes.json();
+  if (!event_id) throw new Error('Tidak dapat event_id');
+  debug('Event: ' + event_id);
   
-  if (!submitRes.ok) {
-    const errText = await submitRes.text();
-    throw new Error('Submit gagal (' + submitRes.status + '): ' + errText);
-  }
-  
-  const submitData = await submitRes.json();
-  const eventId = submitData.event_id;
-  if (!eventId) throw new Error('Tidak dapat event_id');
-  
-  debug('Event ID: ' + eventId);
-  
-  // Step 2: Poll for result via SSE
   return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      reject(new Error('Timeout: proses terlalu lama (>120 detik)'));
-    }, 120000);
-    
-    const eventSource = new EventSource(spaceUrl + '/call' + endpoint + '/' + eventId);
-    
-    eventSource.onmessage = function(event) {
-      const lines = event.data.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('data:')) {
-          try {
-            const payload = JSON.parse(line.substring(5).trim());
-            debug('SSE data: ' + JSON.stringify(payload).substring(0, 200));
-          } catch(e) {}
-        }
-      }
-    };
-    
-    eventSource.addEventListener('complete', function(event) {
-      clearTimeout(timeout);
-      eventSource.close();
-      try {
-        const result = JSON.parse(event.data);
-        debug('Complete: ' + JSON.stringify(result).substring(0, 300));
-        resolve(result);
-      } catch(e) {
-        reject(new Error('Gagal parse result: ' + e.message));
-      }
-    });
-    
-    eventSource.addEventListener('error', function(event) {
-      clearTimeout(timeout);
-      eventSource.close();
-      try {
-        const errData = JSON.parse(event.data);
-        reject(new Error('AI error: ' + JSON.stringify(errData)));
-      } catch(e) {
-        reject(new Error('Connection error'));
-      }
-    });
-    
-    eventSource.onerror = function(event) {
-      // Don't close immediately — SSE reconnects automatically
-      debug('SSE onerror (may reconnect)');
-    };
+    const timeout = setTimeout(() => reject(new Error('Timeout (>120s)')), 120000);
+    const es = new EventSource(spaceUrl + '/call' + endpoint + '/' + event_id);
+    es.addEventListener('complete', e => { clearTimeout(timeout); es.close(); resolve(JSON.parse(e.data)); });
+    es.addEventListener('error', e => { clearTimeout(timeout); es.close(); reject(new Error('AI error: ' + e.data)); });
+    es.onerror = () => {}; // auto-reconnect
   });
 }
 
 // ═══════════════════════════════════════════════════════════════
-// GENERATE
+// GENERATE — Clothing mode (IDM-VTON)
+// ═══════════════════════════════════════════════════════════════
+
+async function generateClothing() {
+  showProgress('Mengupload foto model...', 15);
+  const modelPath = await uploadFile(modelFile, SPACE_URL);
+  
+  showProgress('Mengupload foto produk...', 30);
+  const garmentPath = await uploadFile(garmentFile, SPACE_URL);
+  
+  const desc = document.getElementById('garmentDesc').value.trim() || 'clothing';
+  const apiData = [
+    { background: { path: modelPath, meta: { _type: "gradio.FileData" } }, layers: [], composite: null },
+    { path: garmentPath, meta: { _type: "gradio.FileData" } },
+    desc, true, false, 30, 42
+  ];
+  
+  showProgress('AI sedang memproses... (1-3 menit)', 50);
+  const result = await gradioCall(SPACE_URL, '/tryon', apiData);
+  return extractImageUrl(result, SPACE_URL);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GENERATE — Accessory mode (RMBG + Canvas composite)
+// ═══════════════════════════════════════════════════════════════
+
+async function generateAccessory() {
+  // Step 1: Remove background from product image
+  showProgress('Menghapus background produk...', 20);
+  debug('Uploading product to RMBG...');
+  const prodPath = await uploadFile(garmentFile, RMBG_URL);
+  
+  showProgress('AI menghapus background...', 40);
+  debug('Calling RMBG...');
+  const rmbgResult = await gradioCall(RMBG_URL, '/image', [prodPath, 1024, true]);
+  
+  // Get the processed image URL
+  let processedUrl = extractImageUrl(rmbgResult, RMBG_URL);
+  debug('Processed product URL: ' + processedUrl);
+  
+  // Step 2: Load processed product image
+  showProgress('Menggabungkan gambar...', 70);
+  const processedImg = await loadImage(processedUrl);
+  
+  // Step 3: Composite on canvas
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  
+  canvas.width = modelImg.width;
+  canvas.height = modelImg.height;
+  
+  // Draw model
+  ctx.drawImage(modelImg, 0, 0);
+  
+  // Calculate position
+  const pX = parseInt(document.getElementById('posX').value) / 100;
+  const pY = parseInt(document.getElementById('posY').value) / 100;
+  const pSize = parseInt(document.getElementById('prodSize').value) / 100;
+  const pOpacity = parseInt(document.getElementById('prodOpacity').value) / 100;
+  
+  const prodW = canvas.width * pSize;
+  const prodH = prodW * (processedImg.height / processedImg.width);
+  const prodX = (canvas.width - prodW) * pX;
+  const prodY = (canvas.height - prodH) * pY;
+  
+  ctx.globalAlpha = pOpacity;
+  ctx.drawImage(processedImg, prodX, prodY, prodW, prodH);
+  
+  showProgress('Selesai!', 100);
+  return canvas.toDataURL('image/png');
+}
+
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('Gagal load gambar'));
+    img.src = url;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MAIN GENERATE
 // ═══════════════════════════════════════════════════════════════
 
 async function generate() {
-  if (!garmentFile) { showError('Upload foto produk terlebih dahulu!'); return; }
-  if (!modelFile) { showError('Upload foto model terlebih dahulu!'); return; }
+  if (!garmentBase64) { showError('Upload foto produk!'); return; }
+  if (!modelBase64) { showError('Upload foto model!'); return; }
   
-  hideError();
-  hideResult();
-  hideDebug();
-  showProgress('Menyiapkan...', 5);
+  hideError(); hideResult(); hideDebug();
   document.getElementById('generateBtn').disabled = true;
   
   try {
-    // Step 1: Upload images
-    showProgress('Mengupload foto model...', 15);
-    debug('Uploading model image...');
-    const modelPath = await uploadFile(modelFile, SPACE_URL);
-    debug('Model uploaded: ' + modelPath);
-    
-    showProgress('Mengupload foto produk...', 30);
-    debug('Uploading garment image...');
-    const garmentPath = await uploadFile(garmentFile, SPACE_URL);
-    debug('Garment uploaded: ' + garmentPath);
-    
-    // Step 2: Build the data for IDM-VTON
-    // Parameter format for /tryon endpoint:
-    // 1. human_img: EditorData {background: FileData, layers: [], composite: null}
-    // 2. garm_img: FileData
-    // 3. garment_des: string
-    // 4. is_checked: boolean (auto-masking)
-    // 5. is_checked_crop: boolean
-    // 6. denoise_steps: number
-    // 7. seed: number
-    
-    const desc = document.getElementById('garmentDesc').value.trim() || 'clothing';
-    
-    const humanImgData = {
-      background: {
-        path: modelPath,
-        meta: { _type: "gradio.FileData" }
-      },
-      layers: [],
-      composite: null
-    };
-    
-    const garmImgData = {
-      path: garmentPath,
-      meta: { _type: "gradio.FileData" }
-    };
-    
-    const apiData = [
-      humanImgData,
-      garmImgData,
-      desc,      // garment_des
-      true,      // is_checked (auto-masking)
-      false,     // is_checked_crop
-      30,        // denoise_steps
-      42         // seed
-    ];
-    
-    showProgress('AI sedang memproses... (bisa 1-3 menit)', 50);
-    debug('Calling /tryon endpoint...');
-    debug('Data: ' + JSON.stringify(apiData).substring(0, 500));
-    
-    // Step 3: Call the API
-    const result = await gradioCall(SPACE_URL, '/tryon', apiData);
-    
-    showProgress('Selesai!', 100);
-    debug('Result: ' + JSON.stringify(result).substring(0, 500));
-    
-    // Step 4: Extract image URL from result
-    let imageUrl = null;
-    
-    if (Array.isArray(result)) {
-      for (const item of result) {
-        if (item?.url) { imageUrl = item.url; break; }
-        if (item?.path) { imageUrl = SPACE_URL + '/file=' + item.path; break; }
-        if (item?.image?.url) { imageUrl = item.image.url; break; }
-        if (Array.isArray(item)) {
-          for (const sub of item) {
-            if (sub?.url) { imageUrl = sub.url; break; }
-            if (sub?.path) { imageUrl = SPACE_URL + '/file=' + sub.path; break; }
-          }
-        }
-      }
-    } else if (result?.url) {
-      imageUrl = result.url;
-    } else if (result?.path) {
-      imageUrl = SPACE_URL + '/file=' + result.path;
+    let imageUrl;
+    if (mode === 'clothing') {
+      imageUrl = await generateClothing();
+    } else {
+      imageUrl = await generateAccessory();
     }
     
-    if (!imageUrl) {
-      debug('Full result: ' + JSON.stringify(result));
-      throw new Error('Tidak ada gambar dihasilkan. Cek debug info di bawah.');
-    }
+    if (!imageUrl) throw new Error('Tidak ada gambar dihasilkan');
     
-    debug('Image URL: ' + imageUrl);
-    
-    setTimeout(() => {
-      hideProgress();
-      showResult(imageUrl);
-    }, 500);
-    
+    showResult(imageUrl);
   } catch (err) {
-    hideProgress();
-    showError('Error: ' + (err.message || 'Gagal generate'));
+    showError('Error: ' + err.message);
     console.error(err);
   }
   
   document.getElementById('generateBtn').disabled = false;
+  hideProgress();
 }
 
 // ═══════════════════════════════════════════════════════════════
-// UI HELPERS
+// HELPERS
 // ═══════════════════════════════════════════════════════════════
 
-function showProgress(text, pct) {
-  document.getElementById('progress').classList.add('show');
-  document.getElementById('progressText').textContent = text;
-  document.getElementById('progressFill').style.width = pct + '%';
+function extractImageUrl(result, spaceUrl) {
+  if (Array.isArray(result)) {
+    for (const item of result) {
+      if (item?.url) return item.url;
+      if (item?.path) return spaceUrl + '/file=' + item.path;
+      if (Array.isArray(item)) {
+        for (const sub of item) {
+          if (sub?.url) return sub.url;
+          if (sub?.path) return spaceUrl + '/file=' + sub.path;
+        }
+      }
+    }
+  }
+  if (result?.url) return result.url;
+  if (result?.path) return spaceUrl + '/file=' + result.path;
+  debug('Result: ' + JSON.stringify(result).substring(0, 500));
+  return null;
 }
+
+function showProgress(t, p) { const el=document.getElementById('progress'); el.classList.add('show'); document.getElementById('progressText').textContent=t; document.getElementById('progressFill').style.width=p+'%'; }
 function hideProgress() { document.getElementById('progress').classList.remove('show'); }
-
-function showResult(url) {
-  resultImageUrl = url;
-  document.getElementById('resultImage').src = url;
-  document.getElementById('result').classList.add('show');
-  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+function showResult(url) { resultImageUrl=url; document.getElementById('resultImage').src=url; document.getElementById('result').classList.add('show'); document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'}); }
 function hideResult() { document.getElementById('result').classList.remove('show'); }
-
-function showError(msg) {
-  const el = document.getElementById('error');
-  el.textContent = msg;
-  el.classList.add('show');
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+function showError(m) { const e=document.getElementById('error'); e.textContent=m; e.classList.add('show'); e.scrollIntoView({behavior:'smooth',block:'nearest'}); }
 function hideError() { document.getElementById('error').classList.remove('show'); }
-
-function debug(msg) {
-  const el = document.getElementById('debugInfo');
-  el.classList.add('show');
-  const time = new Date().toLocaleTimeString('id-ID');
-  el.textContent += '[' + time + '] ' + msg + '\n';
-  el.scrollTop = el.scrollHeight;
-  console.log('[DEBUG]', msg);
-}
-function hideDebug() { document.getElementById('debugInfo').textContent = ''; document.getElementById('debugInfo').classList.remove('show'); }
-
-function downloadResult() {
-  if (!resultImageUrl) return;
-  const a = document.createElement('a');
-  a.href = resultImageUrl;
-  a.download = 'affiliate-fit-' + Date.now() + '.png';
-  a.target = '_blank';
-  a.click();
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
-}
+function debug(m) { const e=document.getElementById('debugInfo'); e.classList.add('show'); e.textContent+='['+new Date().toLocaleTimeString('id-ID')+'] '+m+'\n'; e.scrollTop=e.scrollHeight; console.log('[DBG]',m); }
+function hideDebug() { document.getElementById('debugInfo').textContent=''; document.getElementById('debugInfo').classList.remove('show'); }
+function downloadResult() { if(!resultImageUrl)return; const a=document.createElement('a'); a.href=resultImageUrl; a.download='affiliate-fit-'+Date.now()+'.png'; a.click(); }
 </script>
 </body>
 </html>
