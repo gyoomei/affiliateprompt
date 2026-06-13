@@ -11,14 +11,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh}
 .container{max-width:1000px;margin:0 auto;padding:20px 16px}
-
-/* Header */
 .header{text-align:center;padding:40px 0 32px}
 .header h1{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .header p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
 .header .free-badge{display:inline-block;background:var(--green-bg);color:var(--green);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;margin-top:8px;border:1px solid rgba(16,185,129,0.3)}
-
-/* Upload Area */
 .upload-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
 .upload-box{background:var(--bg2);border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .upload-box:hover{border-color:var(--accent);background:var(--accent-bg)}
@@ -30,16 +26,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .upload-box input{display:none}
 .upload-box .remove-btn{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:none}
 .upload-box.has-image .remove-btn{display:block}
-
-/* Settings */
 .settings{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
 .settings h3{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .setting-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .setting-row label{font-size:13px;font-weight:500;min-width:100px}
 .setting-row select,.setting-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
 .setting-row select:focus,.setting-row input:focus{outline:none;border-color:var(--accent)}
-
-/* How It Works */
 .how-it-works{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
 .how-it-works h3{font-size:14px;font-weight:600;margin-bottom:16px}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -47,22 +39,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .step .num{width:28px;height:28px;background:var(--accent-bg);color:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
 .step .title{font-size:12px;font-weight:600;margin-bottom:4px}
 .step .desc{font-size:11px;color:var(--text2)}
-
-/* Generate Button */
 .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px}
 .generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,0.3)}
 .generate-btn:active{transform:translateY(0)}
 .generate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-
-/* Progress */
 .progress{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px;display:none}
 .progress.show{display:block;animation:slideUp .3s ease}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .progress-bar{width:100%;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:12px}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));border-radius:3px;transition:width .3s;width:0%}
 .progress-text{font-size:13px;color:var(--text2);text-align:center}
-
-/* Result */
 .result{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-top:20px;overflow:hidden;display:none}
 .result.show{display:block;animation:slideUp .3s ease}
 .result-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
@@ -75,20 +61,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .download-btn:hover{background:rgba(16,185,129,0.2)}
 .retry-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,0.3)}
 .retry-btn:hover{background:rgba(245,158,11,0.2)}
-
-/* Error */
-.error{background:var(--red-bg);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;color:var(--red);display:none}
+.error{background:var(--red-bg);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;color:var(--red);display:none;white-space:pre-wrap}
 .error.show{display:block}
-
-/* Toast */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
 .toast.show{opacity:1}
-
-/* Footer */
 .footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--text2)}
 .footer a{color:var(--accent2);text-decoration:none}
-
-/* Mobile */
+.section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title span:last-child{flex:1;height:1px;background:var(--border)}
+.debug-info{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-top:12px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);max-height:200px;overflow-y:auto;display:none}
+.debug-info.show{display:block}
 @media(max-width:640px){
   .upload-section{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr}
@@ -104,42 +86,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 <div class="header">
   <h1>👗 AffiliateFit</h1>
-  <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional model pakai produk kamu</p>
+  <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional</p>
   <div class="free-badge">✨ 100% GRATIS — Tanpa API Key</div>
 </div>
 
-<!-- How It Works -->
 <div class="how-it-works">
   <h3>🪄 Cara Kerja</h3>
   <div class="steps">
-    <div class="step">
-      <div class="num">1</div>
-      <div class="title">Upload Produk</div>
-      <div class="desc">Foto hijab/bergo/baju</div>
-    </div>
-    <div class="step">
-      <div class="num">2</div>
-      <div class="title">Upload Model</div>
-      <div class="desc">Foto orang/model</div>
-    </div>
-    <div class="step">
-      <div class="num">3</div>
-      <div class="title">Generate</div>
-      <div class="desc">AI gabungkan otomatis</div>
-    </div>
-    <div class="step">
-      <div class="num">4</div>
-      <div class="title">Download</div>
-      <div class="desc">Pakai di Threads/IG</div>
-    </div>
+    <div class="step"><div class="num">1</div><div class="title">Upload Produk</div><div class="desc">Foto hijab/bergo/baju</div></div>
+    <div class="step"><div class="num">2</div><div class="title">Upload Model</div><div class="desc">Foto orang/model</div></div>
+    <div class="step"><div class="num">3</div><div class="title">Generate</div><div class="desc">AI gabungkan otomatis</div></div>
+    <div class="step"><div class="num">4</div><div class="title">Download</div><div class="desc">Pakai di Threads/IG</div></div>
   </div>
 </div>
 
-<!-- Upload Section -->
-<div class="section-title" style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px">
-  <span>📸 Upload Foto</span>
-  <span style="flex:1;height:1px;background:var(--border)"></span>
-</div>
+<div class="section-title"><span>📸 Upload Foto</span><span></span></div>
 
 <div class="upload-section">
   <div class="upload-box" id="garmentBox" onclick="document.getElementById('garmentInput').click()">
@@ -147,54 +108,47 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
     <button class="remove-btn" onclick="event.stopPropagation();removeImage('garment')">×</button>
     <div class="icon">🧕</div>
     <div class="label">Foto Produk</div>
-    <div class="hint">Hijab, bergo, pashmina, baju, dll</div>
+    <div class="hint">Hijab, bergo, pashmina, baju</div>
   </div>
   <div class="upload-box" id="modelBox" onclick="document.getElementById('modelInput').click()">
     <input type="file" id="modelInput" accept="image/*" onchange="handleUpload(event, 'model')">
     <button class="remove-btn" onclick="event.stopPropagation();removeImage('model')">×</button>
     <div class="icon">👤</div>
     <div class="label">Foto Model</div>
-    <div class="hint">Foto orang yang mau dipakaikan produk</div>
+    <div class="hint">Foto orang yang mau dipakaikan</div>
   </div>
 </div>
 
-<!-- Settings -->
 <div class="settings">
   <h3>⚙️ Pengaturan</h3>
   <div class="setting-row">
     <label>AI Model</label>
     <select id="modelSelect">
       <option value="yisol/IDM-VTON">IDM-VTON (Recommended)</option>
-      <option value="Kwai-Kolors/Kolors-Virtual-Try-On">Kolors Try-On</option>
     </select>
   </div>
   <div class="setting-row">
     <label>Deskripsi</label>
-    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo hitam, pashmina dusty pink">
+    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo hitam">
   </div>
 </div>
 
-<!-- Generate Button -->
 <button class="generate-btn" id="generateBtn" onclick="generate()">
   <span>✨</span> Generate Virtual Try-On
 </button>
 
-<!-- Progress -->
 <div class="progress" id="progress">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-text" id="progressText">Menyiapkan...</div>
 </div>
 
-<!-- Error -->
 <div class="error" id="error"></div>
+<div class="debug-info" id="debugInfo"></div>
 
-<!-- Result -->
 <div class="result" id="result">
-  <div class="result-header">
-    <h3>✨ Hasil Virtual Try-On</h3>
-  </div>
+  <div class="result-header"><h3>✨ Hasil Virtual Try-On</h3></div>
   <div class="result-body">
-    <img id="resultImage" src="" alt="Virtual Try-On Result">
+    <img id="resultImage" src="" alt="Result">
     <div class="result-actions">
       <button class="action-btn download-btn" onclick="downloadResult()">⬇️ Download</button>
       <button class="action-btn retry-btn" onclick="generate()">🔄 Generate Lagi</button>
@@ -203,31 +157,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 </div>
 
 <div class="footer">
-  Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a> — Affiliate Shopee Toolkit<br>
-  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://huggingface.co" target="_blank">Hugging Face</a> Spaces (Free)</span>
+  Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a><br>
+  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://huggingface.co/yisol/IDM-VTON" target="_blank">IDM-VTON</a> on Hugging Face</span>
 </div>
 </div>
 
-<div class="toast" id="toast">Copied!</div>
+<div class="toast" id="toast"></div>
 
-<script type="module">
-import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.5.2/dist/index.min.js";
-
-// ═══════════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════════
+<script>
+const SPACE_URL = 'https://yisol-idm-vton.hf.space';
 
 let garmentFile = null;
 let modelFile = null;
 let garmentBase64 = null;
 let modelBase64 = null;
 let resultImageUrl = null;
-
-// Make functions global
-window.handleUpload = handleUpload;
-window.removeImage = removeImage;
-window.generate = generate;
-window.downloadResult = downloadResult;
 
 // ═══════════════════════════════════════════════════════════════
 // IMAGE UPLOAD
@@ -236,25 +180,16 @@ window.downloadResult = downloadResult;
 function handleUpload(event, type) {
   const file = event.target.files[0];
   if (!file) return;
-  
   const reader = new FileReader();
   reader.onload = function(e) {
     const base64 = e.target.result;
     const box = document.getElementById(type + 'Box');
-    const img = box.querySelector('img') || document.createElement('img');
-    
+    let img = box.querySelector('img');
+    if (!img) { img = document.createElement('img'); box.appendChild(img); }
     img.src = base64;
-    if (!box.querySelector('img')) box.appendChild(img);
-    
     box.classList.add('has-image');
-    
-    if (type === 'garment') {
-      garmentFile = file;
-      garmentBase64 = base64;
-    } else {
-      modelFile = file;
-      modelBase64 = base64;
-    }
+    if (type === 'garment') { garmentFile = file; garmentBase64 = base64; }
+    else { modelFile = file; modelBase64 = base64; }
   };
   reader.readAsDataURL(file);
 }
@@ -264,16 +199,96 @@ function removeImage(type) {
   const img = box.querySelector('img');
   if (img) img.remove();
   box.classList.remove('has-image');
+  if (type === 'garment') { garmentFile = null; garmentBase64 = null; document.getElementById('garmentInput').value = ''; }
+  else { modelFile = null; modelBase64 = null; document.getElementById('modelInput').value = ''; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GRADIO API — Direct HTTP (no library needed)
+// ═══════════════════════════════════════════════════════════════
+
+async function uploadFile(file, spaceUrl) {
+  const formData = new FormData();
+  formData.append('files', file);
   
-  if (type === 'garment') {
-    garmentFile = null;
-    garmentBase64 = null;
-    document.getElementById('garmentInput').value = '';
-  } else {
-    modelFile = null;
-    modelBase64 = null;
-    document.getElementById('modelInput').value = '';
+  const res = await fetch(spaceUrl + '/upload', {
+    method: 'POST',
+    body: formData,
+  });
+  
+  if (!res.ok) throw new Error('Upload gagal: ' + res.status);
+  const data = await res.json();
+  if (!data || !data[0]) throw new Error('Upload return kosong');
+  return data[0]; // returns the file path on server
+}
+
+async function gradioCall(spaceUrl, endpoint, data) {
+  // Step 1: Submit the job
+  const submitRes = await fetch(spaceUrl + '/call' + endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data: data }),
+  });
+  
+  if (!submitRes.ok) {
+    const errText = await submitRes.text();
+    throw new Error('Submit gagal (' + submitRes.status + '): ' + errText);
   }
+  
+  const submitData = await submitRes.json();
+  const eventId = submitData.event_id;
+  if (!eventId) throw new Error('Tidak dapat event_id');
+  
+  debug('Event ID: ' + eventId);
+  
+  // Step 2: Poll for result via SSE
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error('Timeout: proses terlalu lama (>120 detik)'));
+    }, 120000);
+    
+    const eventSource = new EventSource(spaceUrl + '/call' + endpoint + '/' + eventId);
+    
+    eventSource.onmessage = function(event) {
+      const lines = event.data.split('\n');
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          try {
+            const payload = JSON.parse(line.substring(5).trim());
+            debug('SSE data: ' + JSON.stringify(payload).substring(0, 200));
+          } catch(e) {}
+        }
+      }
+    };
+    
+    eventSource.addEventListener('complete', function(event) {
+      clearTimeout(timeout);
+      eventSource.close();
+      try {
+        const result = JSON.parse(event.data);
+        debug('Complete: ' + JSON.stringify(result).substring(0, 300));
+        resolve(result);
+      } catch(e) {
+        reject(new Error('Gagal parse result: ' + e.message));
+      }
+    });
+    
+    eventSource.addEventListener('error', function(event) {
+      clearTimeout(timeout);
+      eventSource.close();
+      try {
+        const errData = JSON.parse(event.data);
+        reject(new Error('AI error: ' + JSON.stringify(errData)));
+      } catch(e) {
+        reject(new Error('Connection error'));
+      }
+    });
+    
+    eventSource.onerror = function(event) {
+      // Don't close immediately — SSE reconnects automatically
+      debug('SSE onerror (may reconnect)');
+    };
+  });
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -281,103 +296,100 @@ function removeImage(type) {
 // ═══════════════════════════════════════════════════════════════
 
 async function generate() {
-  if (!garmentFile) {
-    showError('Upload foto produk terlebih dahulu!');
-    return;
-  }
+  if (!garmentFile) { showError('Upload foto produk terlebih dahulu!'); return; }
+  if (!modelFile) { showError('Upload foto model terlebih dahulu!'); return; }
   
-  if (!modelFile) {
-    showError('Upload foto model terlebih dahulu!');
-    return;
-  }
-  
-  const spaceId = document.getElementById('modelSelect').value;
-  const desc = document.getElementById('garmentDesc').value.trim() || 'clothing';
-  
-  // UI states
   hideError();
   hideResult();
-  showProgress('Menghubungkan ke AI...', 10);
+  hideDebug();
+  showProgress('Menyiapkan...', 5);
   document.getElementById('generateBtn').disabled = true;
   
   try {
-    // Connect to Gradio Space
-    showProgress('Menghubungkan ke ' + spaceId + '...', 20);
-    const client = await Client.connect(spaceId, {
-      events: ["status"],
-    });
+    // Step 1: Upload images
+    showProgress('Mengupload foto model...', 15);
+    debug('Uploading model image...');
+    const modelPath = await uploadFile(modelFile, SPACE_URL);
+    debug('Model uploaded: ' + modelPath);
     
-    // Upload images
     showProgress('Mengupload foto produk...', 30);
-    const garmentBlob = await fetch(garmentBase64).then(r => r.blob());
+    debug('Uploading garment image...');
+    const garmentPath = await uploadFile(garmentFile, SPACE_URL);
+    debug('Garment uploaded: ' + garmentPath);
     
-    showProgress('Mengupload foto model...', 40);
-    const modelBlob = await fetch(modelBase64).then(r => r.blob());
+    // Step 2: Build the data for IDM-VTON
+    // Parameter format for /tryon endpoint:
+    // 1. human_img: EditorData {background: FileData, layers: [], composite: null}
+    // 2. garm_img: FileData
+    // 3. garment_des: string
+    // 4. is_checked: boolean (auto-masking)
+    // 5. is_checked_crop: boolean
+    // 6. denoise_steps: number
+    // 7. seed: number
     
-    // Call the API
-    showProgress('AI sedang memproses... (30-60 detik)', 50);
+    const desc = document.getElementById('garmentDesc').value.trim() || 'clothing';
     
-    let result;
+    const humanImgData = {
+      background: {
+        path: modelPath,
+        meta: { _type: "gradio.FileData" }
+      },
+      layers: [],
+      composite: null
+    };
     
-    if (spaceId === "yisol/IDM-VTON") {
-      // IDM-VTON API: [human_img, garm_img, garment_des, is_checked, is_checked_crop, denoise_steps, seed]
-      result = await client.predict("/tryon", {
-        human_img: modelBlob,
-        garm_img: garmentBlob,
-        garment_des: desc,
-        is_checked: true,
-        is_checked_crop: false,
-        denoise_steps: 30,
-        seed: 42,
-      });
-    } else if (spaceId === "Kwai-Kolors/Kolors-Virtual-Try-On") {
-      // Kolors API: [human_img, garment_img]
-      result = await client.predict("/tryon", {
-        human_img: modelBlob,
-        garment_img: garmentBlob,
-      });
-    } else {
-      // Generic: try first two args
-      result = await client.predict("/tryon", {
-        human_img: modelBlob,
-        garm_img: garmentBlob,
-      });
-    }
+    const garmImgData = {
+      path: garmentPath,
+      meta: { _type: "gradio.FileData" }
+    };
     
-    // Process result
+    const apiData = [
+      humanImgData,
+      garmImgData,
+      desc,      // garment_des
+      true,      // is_checked (auto-masking)
+      false,     // is_checked_crop
+      30,        // denoise_steps
+      42         // seed
+    ];
+    
+    showProgress('AI sedang memproses... (bisa 1-3 menit)', 50);
+    debug('Calling /tryon endpoint...');
+    debug('Data: ' + JSON.stringify(apiData).substring(0, 500));
+    
+    // Step 3: Call the API
+    const result = await gradioCall(SPACE_URL, '/tryon', apiData);
+    
     showProgress('Selesai!', 100);
+    debug('Result: ' + JSON.stringify(result).substring(0, 500));
     
+    // Step 4: Extract image URL from result
     let imageUrl = null;
     
-    // Handle different response formats
-    if (result?.data) {
-      const data = result.data;
-      
-      // Check if it's an image object with url
-      for (const item of Array.isArray(data) ? data : [data]) {
-        if (item?.url) {
-          imageUrl = item.url;
-          break;
-        }
-        if (item?.image?.url) {
-          imageUrl = item.image.url;
-          break;
-        }
-        // Sometimes it's a list of images
+    if (Array.isArray(result)) {
+      for (const item of result) {
+        if (item?.url) { imageUrl = item.url; break; }
+        if (item?.path) { imageUrl = SPACE_URL + '/file=' + item.path; break; }
+        if (item?.image?.url) { imageUrl = item.image.url; break; }
         if (Array.isArray(item)) {
           for (const sub of item) {
-            if (sub?.url) {
-              imageUrl = sub.url;
-              break;
-            }
+            if (sub?.url) { imageUrl = sub.url; break; }
+            if (sub?.path) { imageUrl = SPACE_URL + '/file=' + sub.path; break; }
           }
         }
       }
+    } else if (result?.url) {
+      imageUrl = result.url;
+    } else if (result?.path) {
+      imageUrl = SPACE_URL + '/file=' + result.path;
     }
     
     if (!imageUrl) {
-      throw new Error('Tidak ada gambar yang dihasilkan. Coba lagi atau gunakan model lain.');
+      debug('Full result: ' + JSON.stringify(result));
+      throw new Error('Tidak ada gambar dihasilkan. Cek debug info di bawah.');
     }
+    
+    debug('Image URL: ' + imageUrl);
     
     setTimeout(() => {
       hideProgress();
@@ -386,7 +398,7 @@ async function generate() {
     
   } catch (err) {
     hideProgress();
-    showError('Error: ' + (err.message || 'Gagal generate gambar'));
+    showError('Error: ' + (err.message || 'Gagal generate'));
     console.error(err);
   }
   
@@ -397,36 +409,38 @@ async function generate() {
 // UI HELPERS
 // ═══════════════════════════════════════════════════════════════
 
-function showProgress(text, percent) {
+function showProgress(text, pct) {
   document.getElementById('progress').classList.add('show');
   document.getElementById('progressText').textContent = text;
-  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
 }
+function hideProgress() { document.getElementById('progress').classList.remove('show'); }
 
-function hideProgress() {
-  document.getElementById('progress').classList.remove('show');
-}
-
-function showResult(imageUrl) {
-  resultImageUrl = imageUrl;
-  document.getElementById('resultImage').src = imageUrl;
+function showResult(url) {
+  resultImageUrl = url;
+  document.getElementById('resultImage').src = url;
   document.getElementById('result').classList.add('show');
   document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-
-function hideResult() {
-  document.getElementById('result').classList.remove('show');
-}
+function hideResult() { document.getElementById('result').classList.remove('show'); }
 
 function showError(msg) {
-  const err = document.getElementById('error');
-  err.textContent = msg;
-  err.classList.add('show');
+  const el = document.getElementById('error');
+  el.textContent = msg;
+  el.classList.add('show');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+function hideError() { document.getElementById('error').classList.remove('show'); }
 
-function hideError() {
-  document.getElementById('error').classList.remove('show');
+function debug(msg) {
+  const el = document.getElementById('debugInfo');
+  el.classList.add('show');
+  const time = new Date().toLocaleTimeString('id-ID');
+  el.textContent += '[' + time + '] ' + msg + '\n';
+  el.scrollTop = el.scrollHeight;
+  console.log('[DEBUG]', msg);
 }
+function hideDebug() { document.getElementById('debugInfo').textContent = ''; document.getElementById('debugInfo').classList.remove('show'); }
 
 function downloadResult() {
   if (!resultImageUrl) return;
@@ -438,10 +452,10 @@ function downloadResult() {
 }
 
 function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
 }
 </script>
 </body>
