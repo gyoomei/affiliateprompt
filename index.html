@@ -3,45 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>AffiliatePrompt — Magic Prompt Generator</title>
+<title>AffiliateFit — Virtual Try-On untuk Affiliate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0b0f;--bg2:#12131a;--bg3:#1a1b26;--border:#2a2d3a;--text:#e8eaf0;--text2:#8b8fa8;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:rgba(139,92,246,0.1);--green:#10b981;--green-bg:rgba(16,185,129,0.1);--pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);--orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,0.3)}
+:root{--bg:#0a0b0f;--bg2:#12131a;--bg3:#1a1b26;--border:#2a2d3a;--text:#e8eaf0;--text2:#8b8fa8;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:rgba(139,92,246,0.1);--green:#10b981;--green-bg:rgba(16,185,129,0.1);--pink:#ec4899;--pink-bg:rgba(236,72,153,0.1);--orange:#f59e0b;--orange-bg:rgba(245,158,11,0.1);--red:#ef4444;--red-bg:rgba(239,68,68,0.1);--radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,0.3)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh}
-.container{max-width:900px;margin:0 auto;padding:20px 16px}
+.container{max-width:1000px;margin:0 auto;padding:20px 16px}
 
 /* Header */
 .header{text-align:center;padding:40px 0 32px}
 .header h1{font-size:28px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
 .header p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
 
-/* Product Cards */
-.section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.product-card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center}
-.product-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.product-card.selected{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 20px rgba(139,92,246,0.15)}
-.product-card .emoji{font-size:28px;margin-bottom:8px}
-.product-card .name{font-size:13px;font-weight:600;margin-bottom:4px}
-.product-card .type{font-size:11px;color:var(--text2)}
+/* Upload Area */
+.upload-section{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.upload-box{background:var(--bg2);border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.upload-box:hover{border-color:var(--accent);background:var(--accent-bg)}
+.upload-box.has-image{border-style:solid;border-color:var(--green)}
+.upload-box .icon{font-size:40px;margin-bottom:12px}
+.upload-box .label{font-size:14px;font-weight:600;margin-bottom:4px}
+.upload-box .hint{font-size:12px;color:var(--text2)}
+.upload-box img{max-width:100%;max-height:250px;object-fit:contain;border-radius:var(--radius-sm);margin-top:12px}
+.upload-box input{display:none}
+.upload-box .remove-btn{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:none}
+.upload-box.has-image .remove-btn{display:block}
 
-/* Style Cards */
-.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
-.style-card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px 12px;cursor:pointer;transition:all .2s;text-align:center}
-.style-card:hover{border-color:var(--accent)}
-.style-card.selected{border-color:var(--accent);background:var(--accent-bg)}
-.style-card .icon{font-size:22px;margin-bottom:6px}
-.style-card .name{font-size:12px;font-weight:600;margin-bottom:2px}
-.style-card .desc{font-size:10px;color:var(--text2)}
+/* Settings */
+.settings{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.settings h3{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.setting-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.setting-row label{font-size:13px;font-weight:500;min-width:100px}
+.setting-row input,.setting-row select{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:inherit}
+.setting-row input:focus,.setting-row select:focus{outline:none;border-color:var(--accent)}
 
-/* Color Pills */
-.color-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.color-pill{background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all .2s;font-weight:500}
-.color-pill:hover{border-color:var(--accent)}
-.color-pill.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent2)}
+/* API Key Section */
+.api-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.api-section h3{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.api-section p{font-size:12px;color:var(--text2);margin-bottom:12px}
+.api-section .key-row{display:flex;gap:8px}
+.api-section input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;font-family:'JetBrains Mono',monospace}
+.api-section input:focus{outline:none;border-color:var(--accent)}
+.api-section .save-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3);padding:10px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.api-section .save-btn:hover{background:rgba(16,185,129,0.2)}
+.api-status{font-size:12px;margin-top:8px;display:flex;align-items:center;gap:4px}
+.api-status.ok{color:var(--green)}
+.api-status.error{color:var(--red)}
 
 /* Generate Button */
 .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px}
@@ -49,45 +57,44 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .generate-btn:active{transform:translateY(0)}
 .generate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 
-/* Result Card */
-.result-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-top:20px;overflow:hidden;display:none}
-.result-card.show{display:block;animation:slideUp .3s ease}
+/* Progress */
+.progress{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:20px;display:none}
+.progress.show{display:block;animation:slideUp .3s ease}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.progress-bar{width:100%;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));border-radius:3px;transition:width .3s;width:0%}
+.progress-text{font-size:13px;color:var(--text2);text-align:center}
+
+/* Result */
+.result{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-top:20px;overflow:hidden;display:none}
+.result.show{display:block;animation:slideUp .3s ease}
 .result-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .result-header h3{font-size:15px;font-weight:600}
-.result-header .badge{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500}
-.badge-style{background:var(--accent-bg);color:var(--accent2)}
-.badge-color{background:var(--pink-bg);color:var(--pink)}
-.result-body{padding:20px}
-.prompt-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
-.prompt-text{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font-size:13px;line-height:1.7;font-family:'JetBrains Mono',monospace;color:var(--text);word-break:break-all;position:relative;max-height:200px;overflow-y:auto}
-.negative-text{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;font-size:11px;line-height:1.5;font-family:'JetBrains Mono',monospace;color:var(--text2);margin-top:12px}
-.result-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.action-btn{flex:1;padding:10px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;border:none;min-width:120px}
-.copy-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
-.copy-btn:hover{background:rgba(16,185,129,0.2)}
-.download-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,0.3)}
-.download-btn:hover{background:rgba(245,158,11,0.2)}
-.generate-img-btn{background:var(--accent-bg);color:var(--accent2);border:1px solid rgba(139,92,246,0.3)}
-.generate-img-btn:hover{background:rgba(139,92,246,0.2)}
+.result-body{padding:20px;text-align:center}
+.result-body img{max-width:100%;max-height:500px;border-radius:var(--radius-sm);box-shadow:var(--shadow)}
+.result-actions{display:flex;gap:10px;margin-top:16px;justify-content:center}
+.action-btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;border:none}
+.download-btn{background:var(--green-bg);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
+.download-btn:hover{background:rgba(16,185,129,0.2)}
+.retry-btn{background:var(--orange-bg);color:var(--orange);border:1px solid rgba(245,158,11,0.3)}
+.retry-btn:hover{background:rgba(245,158,11,0.2)}
 
-/* Seed & Meta */
-.result-meta{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--text2)}
-.result-meta span{display:flex;align-items:center;gap:4px}
+/* Error */
+.error{background:var(--red-bg);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;color:var(--red);display:none}
+.error.show{display:block}
 
 /* Toast */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
 .toast.show{opacity:1}
 
-/* Batch Section */
-.batch-section{margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
-.batch-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
-.batch-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;transition:all .2s}
-.batch-item:hover{border-color:var(--accent)}
-.batch-item .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.batch-item .top .label{font-size:13px;font-weight:600}
-.batch-item .top .meta{font-size:11px;color:var(--text2)}
-.batch-item .preview{font-size:11px;color:var(--text2);line-height:1.5;max-height:40px;overflow:hidden;font-family:'JetBrains Mono',monospace}
+/* How It Works */
+.how-it-works{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.how-it-works h3{font-size:14px;font-weight:600;margin-bottom:16px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{text-align:center;padding:12px}
+.step .num{width:28px;height:28px;background:var(--accent-bg);color:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 8px}
+.step .title{font-size:12px;font-weight:600;margin-bottom:4px}
+.step .desc{font-size:11px;color:var(--text2)}
 
 /* Footer */
 .footer{text-align:center;padding:40px 0 20px;font-size:12px;color:var(--text2)}
@@ -95,11 +102,13 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 /* Mobile */
 @media(max-width:640px){
-  .product-grid{grid-template-columns:1fr 1fr 1fr}
-  .style-grid{grid-template-columns:1fr 1fr}
-  .result-actions{flex-direction:column}
-  .action-btn{min-width:auto}
+  .upload-section{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
   .header h1{font-size:22px}
+  .setting-row{flex-direction:column;align-items:stretch}
+  .setting-row label{min-width:auto}
+  .api-section .key-row{flex-direction:column}
+  .result-actions{flex-direction:column}
 }
 </style>
 </head>
@@ -107,69 +116,118 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <div class="container">
 
 <div class="header">
-  <h1>🪄 AffiliatePrompt</h1>
-  <p>Generate professional AI prompts for affiliate product photography. One click → copy-paste to any image generator.</p>
+  <h1>👗 AffiliateFit</h1>
+  <p>Upload foto produk + foto model → AI gabungkan jadi foto profesional model pakai produk affiliate kamu</p>
 </div>
 
-<!-- Product Selection -->
-<div class="section-title">📦 Produk</div>
-<div class="product-grid" id="products"></div>
+<!-- How It Works -->
+<div class="how-it-works">
+  <h3>🪄 Cara Kerja</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="title">Upload Produk</div>
+      <div class="desc">Foto produk dari Shopee</div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="title">Upload Model</div>
+      <div class="desc">Foto orang/model</div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="title">Generate</div>
+      <div class="desc">AI gabungkan otomatis</div>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="title">Download</div>
+      <div class="desc">Pakai di Threads/IG</div>
+    </div>
+  </div>
+</div>
 
-<!-- Style Selection -->
-<div class="section-title">🎨 Style Foto</div>
-<div class="style-grid" id="styles"></div>
+<!-- API Key -->
+<div class="api-section">
+  <h3>🔑 FAL.AI API Key</h3>
+  <p>Dapatkan API key gratis di <a href="https://fal.ai" target="_blank" style="color:var(--accent2)">fal.ai</a> → $5 free credits (~100 gambar). Key disimpan di browser kamu saja.</p>
+  <div class="key-row">
+    <input type="password" id="apiKey" placeholder="fal-xxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+    <button class="save-btn" onclick="saveApiKey()">💾 Simpan</button>
+  </div>
+  <div class="api-status" id="apiStatus"></div>
+</div>
 
-<!-- Color Selection -->
-<div class="section-title">🎨 Warna</div>
-<div class="color-row" id="colors"></div>
+<!-- Upload Section -->
+<div class="section-title" style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+  <span>📸 Upload Foto</span>
+  <span style="flex:1;height:1px;background:var(--border)"></span>
+</div>
+
+<div class="upload-section">
+  <div class="upload-box" id="garmentBox" onclick="document.getElementById('garmentInput').click()">
+    <input type="file" id="garmentInput" accept="image/*" onchange="handleUpload(event, 'garment')">
+    <button class="remove-btn" onclick="event.stopPropagation();removeImage('garment')">×</button>
+    <div class="icon">🧕</div>
+    <div class="label">Foto Produk</div>
+    <div class="hint">Hijab, bergo, pashmina, baju, dll</div>
+  </div>
+  <div class="upload-box" id="modelBox" onclick="document.getElementById('modelInput').click()">
+    <input type="file" id="modelInput" accept="image/*" onchange="handleUpload(event, 'model')">
+    <button class="remove-btn" onclick="event.stopPropagation();removeImage('model')">×</button>
+    <div class="icon">👤</div>
+    <div class="label">Foto Model</div>
+    <div class="hint">Foto orang yang mau dipakaikan produk</div>
+  </div>
+</div>
+
+<!-- Settings -->
+<div class="settings">
+  <h3>⚙️ Pengaturan</h3>
+  <div class="setting-row">
+    <label>Model</label>
+    <select id="modelSelect">
+      <option value="fal-ai/cat-vton">CAT-VTON (Recommended, ~$0.05)</option>
+      <option value="fal-ai/idm-vton">IDM-VTON (Higher quality, ~$0.10)</option>
+    </select>
+  </div>
+  <div class="setting-row">
+    <label>Deskripsi</label>
+    <input type="text" id="garmentDesc" placeholder="Contoh: hijab bergo warna hitam, pashmina dusty pink">
+  </div>
+</div>
 
 <!-- Generate Button -->
 <button class="generate-btn" id="generateBtn" onclick="generate()">
-  <span>✨</span> Generate Magic Prompt
+  <span>✨</span> Generate Virtual Try-On
 </button>
 
-<!-- Result -->
-<div class="result-card" id="resultCard">
-  <div class="result-header">
-    <h3 id="resultTitle">📸 Product — Style</h3>
-    <div style="display:flex;gap:6px">
-      <span class="badge badge-style" id="resultStyle">Style</span>
-      <span class="badge badge-color" id="resultColor">Color</span>
-    </div>
-  </div>
-  <div class="result-body">
-    <div class="prompt-label">🎯 Prompt</div>
-    <div class="prompt-text" id="promptText"></div>
-    
-    <div class="prompt-label" style="margin-top:16px">🚫 Negative Prompt</div>
-    <div class="negative-text" id="negativeText"></div>
-    
-    <div class="result-meta">
-      <span>🎲 Seed: <b id="seedVal">-</b></span>
-      <span>📐 1024×1365</span>
-      <span>🤖 Flux</span>
-    </div>
-    
-    <div class="result-actions">
-      <button class="action-btn copy-btn" onclick="copyPrompt()">📋 Copy Prompt</button>
-      <button class="action-btn generate-img-btn" onclick="generateImage()">🖼️ Generate Image</button>
-      <button class="action-btn download-btn" onclick="copyNegative()">🚫 Copy Negative</button>
-    </div>
-  </div>
+<!-- Progress -->
+<div class="progress" id="progress">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText">Mengupload gambar...</div>
 </div>
 
-<!-- Batch Generation -->
-<div class="batch-section">
-  <div class="section-title">⚡ Batch Generate</div>
-  <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Generate 5 prompts sekaligus dengan style berbeda-beda.</p>
-  <button class="generate-btn" style="background:linear-gradient(135deg,#7c3aed,#ec4899)" onclick="generateBatch()">
-    <span>⚡</span> Generate 5 Prompts
-  </button>
-  <div class="batch-grid" id="batchGrid"></div>
+<!-- Error -->
+<div class="error" id="error"></div>
+
+<!-- Result -->
+<div class="result" id="result">
+  <div class="result-header">
+    <h3>✨ Hasil Virtual Try-On</h3>
+  </div>
+  <div class="result-body">
+    <img id="resultImage" src="" alt="Virtual Try-On Result">
+    <div class="result-actions">
+      <button class="action-btn download-btn" onclick="downloadResult()">⬇️ Download</button>
+      <button class="action-btn retry-btn" onclick="generate()">🔄 Generate Lagi</button>
+    </div>
+  </div>
 </div>
 
 <div class="footer">
-  Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a> — Affiliate Shopee Toolkit
+  Made with 🪄 by <a href="https://github.com/gyoomei">gyoomei</a> — Affiliate Shopee Toolkit<br>
+  <span style="font-size:11px;margin-top:4px;display:inline-block">Powered by <a href="https://fal.ai" target="_blank">FAL.AI</a> Virtual Try-On</span>
 </div>
 </div>
 
@@ -177,264 +235,296 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════════════════
-
-const PRODUCTS = {
-  alana_bergo: {
-    name: "ALANA BERGO", fullName: "ALANA BERGO TieBymin", emoji: "🧕",
-    type: "Bergo Instant", desc: "Hijab instan bergo dengan tali, praktis & syar'i",
-    colors: ["hitam","coklat","navy","maroon","hijau army","dusty pink","salem"],
-    material: "kaos rayon premium, lembut dan adem",
-    shopeeLink: "https://s.shopee.co.id/gNZ2aAfcz"
-  },
-  pashmina_kaos: {
-    name: "Pashmina Rayon", fullName: "Pashmina Kaos Rayon", emoji: "🧣",
-    type: "Pashmina", desc: "Pashmina bahan kaos rayon, lembut, adem, mudah diatur",
-    colors: ["hitam","putih","sage","dusty pink","lavender","coklat susu","broken white"],
-    material: "kaos rayon premium, stretchy dan tidak mudah kusut",
-    shopeeLink: "https://s.shopee.co.id/8ATZzrWOqj"
-  },
-  bergo_zalika: {
-    name: "Bergo Zalika", fullName: "Hijab Bergo Zalika", emoji: "🕌",
-    type: "Bergo", desc: "Hijab bergo simple, pet antem, cocok sehari-hari",
-    colors: ["hitam","coklat","navy","maroon","hijau botol","dusty pink"],
-    material: "kaos premium, nyaman dipakai seharian",
-    shopeeLink: "https://s.shopee.co.id/1BJpf8OtDy"
-  }
-};
-
-const STYLES = {
-  lifestyle: {
-    name: "Lifestyle", icon: "☕", desc: "Natural, influencer vibes",
-    templates: [
-      "A beautiful young Indonesian woman wearing {desc} in {color}, walking in a modern minimalist cafe with warm natural lighting, soft bokeh background, candid lifestyle photography, Instagram aesthetic, 85mm lens, golden hour",
-      "Stunning portrait of a young Indonesian hijabi woman wearing {desc} in {color}, sitting in a cozy aesthetic cafe, reading a book, soft window light, natural makeup, warm color grading, shot on Sony A7III, 50mm f/1.4",
-      "Gorgeous Indonesian hijabi wearing {desc} in {color}, in a minimalist living room with plants, natural daylight, clean aesthetic, lifestyle photography, warm and cozy atmosphere, Instagram influencer style",
-      "Professional fashion photo of an Indonesian woman wearing {desc} in {color}, at a rooftop terrace with city skyline, sunset golden hour, warm orange tones, editorial fashion photography, confident pose",
-      "Beautiful Indonesian woman wearing {desc} in {color}, strolling through a modern urban street with palm trees, golden hour sunlight, warm tones, candid street style photography, bokeh background"
-    ]
-  },
-  studio: {
-    name: "Studio", icon: "📸", desc: "Professional, clean background",
-    templates: [
-      "Professional studio portrait of a beautiful Indonesian woman wearing {desc} in {color}, clean white background, soft studio lighting, fashion catalog photography, high-end fashion editorial, 4K quality",
-      "High-end fashion photography of an Indonesian hijabi model wearing {desc} in {color}, minimalist studio setting, dramatic lighting, luxury brand aesthetic, professional fashion shoot",
-      "Elegant studio portrait of a young Indonesian woman wearing {desc} in {color}, soft gradient background, professional beauty lighting, fashion catalog style, clean and polished look",
-      "Commercial product photography of {desc} in {color} worn by a professional Indonesian model, studio lighting, white seamless background, fashion e-commerce style, crisp detail",
-      "Fashion editorial studio shot of an Indonesian woman wearing {desc} in {color}, dramatic side lighting, dark moody background, high fashion aesthetic, editorial quality"
-    ]
-  },
-  casual: {
-    name: "Casual", icon: "🛍️", desc: "Daily, relatable vibes",
-    templates: [
-      "Casual everyday photo of a young Indonesian woman wearing {desc} in {color}, at a traditional Indonesian market, natural lighting, authentic lifestyle, relatable daily outfit, warm tones",
-      "Natural candid photo of an Indonesian hijabi woman wearing {desc} in {color}, shopping at a modern mall, clean lighting, casual outfit of the day, Instagram story aesthetic",
-      "Everyday lifestyle photo of a young Indonesian mother wearing {desc} in {color}, at a cozy warung, warm afternoon light, authentic family moment, casual and relatable",
-      "Casual portrait of an Indonesian university student wearing {desc} in {color}, campus setting, natural daylight, youthful and fresh, everyday hijab style",
-      "Relatable daily photo of an Indonesian woman wearing {desc} in {color}, cooking in a modern kitchen, warm home lighting, authentic lifestyle, cozy atmosphere"
-    ]
-  },
-  outdoor: {
-    name: "Outdoor", icon: "🌿", desc: "Nature, adventure",
-    templates: [
-      "Stunning outdoor portrait of an Indonesian woman wearing {desc} in {color}, in a lush green tropical garden, golden hour sunlight filtering through leaves, natural beauty, warm earth tones",
-      "Beautiful Indonesian hijabi wearing {desc} in {color}, standing in a field of flowers, soft morning light, dreamy atmosphere, nature photography, pastel tones",
-      "Adventure-style photo of an Indonesian woman wearing {desc} in {color}, at a scenic mountain viewpoint, dramatic landscape background, golden hour, outdoor fashion photography",
-      "Beach portrait of an Indonesian woman wearing {desc} in {color}, soft ocean breeze, sunset golden hour, warm tropical tones, lifestyle fashion photography, natural beauty",
-      "Nature-inspired portrait of an Indonesian hijabi wearing {desc} in {color}, in a bamboo forest, dappled sunlight, earth tones, peaceful atmosphere"
-    ]
-  },
-  minimalist: {
-    name: "Minimalis", icon: "⬜", desc: "Clean, product focus",
-    templates: [
-      "Minimalist fashion portrait of an Indonesian woman wearing {desc} in {color}, clean neutral background, soft diffused lighting, focus on fabric texture, high-end fashion photography, simple and elegant",
-      "Clean minimalist photo of {desc} in {color} on an Indonesian model, solid beige background, professional studio lighting, fashion product photography, emphasis on material quality",
-      "Scandinavian-inspired minimal portrait of an Indonesian hijabi wearing {desc} in {color}, white wall background, natural window light, clean lines, modern fashion photography",
-      "High-key fashion photo of an Indonesian woman wearing {desc} in {color}, bright clean background, soft even lighting, fresh and modern, product-focused composition",
-      "Artistic minimalist portrait of an Indonesian model wearing {desc} in {color}, single color background matching the hijab, creative lighting, fashion art photography"
-    ]
-  },
-  editorial: {
-    name: "Editorial", icon: "📰", desc: "Magazine, high fashion",
-    templates: [
-      "High fashion editorial portrait of an Indonesian woman wearing {desc} in {color}, dramatic Vogue-style lighting, bold makeup, striking pose, luxury fashion photography, magazine cover quality",
-      "Fashion editorial photo of an Indonesian hijabi model wearing {desc} in {color}, artistic composition, dramatic shadows, high contrast, modern modest fashion editorial, publication quality",
-      "Editorial fashion spread of an Indonesian woman wearing {desc} in {color}, cinematic color grading, moody atmosphere, strong styling, professional art direction",
-      "Avant-garde fashion portrait of an Indonesian model wearing {desc} in {color}, creative lighting setup, artistic shadows, high fashion aesthetic, bold composition",
-      "Luxury fashion editorial of an Indonesian hijabi wearing {desc} in {color}, rich textures, dramatic draping, professional styling, haute couture photography"
-    ]
-  }
-};
-
-const QUALITY_SUFFIX = ", professional photography, high resolution, sharp focus, detailed fabric texture, natural skin, realistic, 8K UHD";
-const NEGATIVE = "ugly, deformed, disfigured, bad anatomy, bad proportions, blurry, low quality, pixelated, noise, grain, text, watermark, signature, logo, brand name, extra limbs, extra fingers, missing fingers, fused fingers, bad hands, bad feet, bad face, asymmetric face, nude, revealing, cartoon, anime, illustration";
-
-// ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
 
-let selectedProduct = 'alana_bergo';
-let selectedStyle = 'lifestyle';
-let selectedColor = null;
-let currentPrompt = '';
-let currentSeed = 0;
-let batchResults = [];
+let garmentFile = null;
+let modelFile = null;
+let garmentBase64 = null;
+let modelBase64 = null;
+let resultImageUrl = null;
 
 // ═══════════════════════════════════════════════════════════════
-// RENDER
+// API KEY
 // ═══════════════════════════════════════════════════════════════
 
 function init() {
-  renderProducts();
-  renderStyles();
-  renderColors();
+  const savedKey = localStorage.getItem('fal_api_key');
+  if (savedKey) {
+    document.getElementById('apiKey').value = savedKey;
+    updateApiStatus(true);
+  }
 }
 
-function renderProducts() {
-  const grid = document.getElementById('products');
-  grid.innerHTML = Object.entries(PRODUCTS).map(([key, p]) => `
-    <div class="product-card ${key === selectedProduct ? 'selected' : ''}" onclick="selectProduct('${key}')">
-      <div class="emoji">${p.emoji}</div>
-      <div class="name">${p.name}</div>
-      <div class="type">${p.type}</div>
-    </div>
-  `).join('');
+function saveApiKey() {
+  const key = document.getElementById('apiKey').value.trim();
+  if (!key) {
+    updateApiStatus(false, 'Masukkan API key');
+    return;
+  }
+  localStorage.setItem('fal_api_key', key);
+  updateApiStatus(true);
+  showToast('API key saved! 🔑');
 }
 
-function renderStyles() {
-  const grid = document.getElementById('styles');
-  grid.innerHTML = Object.entries(STYLES).map(([key, s]) => `
-    <div class="style-card ${key === selectedStyle ? 'selected' : ''}" onclick="selectStyle('${key}')">
-      <div class="icon">${s.icon}</div>
-      <div class="name">${s.name}</div>
-      <div class="desc">${s.desc}</div>
-    </div>
-  `).join('');
+function updateApiStatus(ok, msg) {
+  const status = document.getElementById('apiStatus');
+  if (ok) {
+    status.className = 'api-status ok';
+    status.textContent = '✓ API key tersimpan';
+  } else {
+    status.className = 'api-status error';
+    status.textContent = '✗ ' + (msg || 'API key tidak valid');
+  }
 }
 
-function renderColors() {
-  const product = PRODUCTS[selectedProduct];
-  const row = document.getElementById('colors');
-  row.innerHTML = product.colors.map(c => `
-    <div class="color-pill ${c === selectedColor ? 'selected' : ''}" onclick="selectColor('${c}')">${c}</div>
-  `).join('');
+function getApiKey() {
+  return localStorage.getItem('fal_api_key') || '';
 }
 
-function selectProduct(key) {
-  selectedProduct = key;
-  selectedColor = null;
-  renderProducts();
-  renderColors();
+// ═══════════════════════════════════════════════════════════════
+// IMAGE UPLOAD
+// ═══════════════════════════════════════════════════════════════
+
+function handleUpload(event, type) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64 = e.target.result;
+    const box = document.getElementById(type + 'Box');
+    const img = box.querySelector('img') || document.createElement('img');
+    
+    img.src = base64;
+    if (!box.querySelector('img')) box.appendChild(img);
+    
+    box.classList.add('has-image');
+    
+    if (type === 'garment') {
+      garmentFile = file;
+      garmentBase64 = base64;
+    } else {
+      modelFile = file;
+      modelBase64 = base64;
+    }
+  };
+  reader.readAsDataURL(file);
 }
 
-function selectStyle(key) {
-  selectedStyle = key;
-  renderStyles();
-}
-
-function selectColor(color) {
-  selectedColor = color;
-  renderColors();
+function removeImage(type) {
+  const box = document.getElementById(type + 'Box');
+  const img = box.querySelector('img');
+  if (img) img.remove();
+  box.classList.remove('has-image');
+  
+  if (type === 'garment') {
+    garmentFile = null;
+    garmentBase64 = null;
+    document.getElementById('garmentInput').value = '';
+  } else {
+    modelFile = null;
+    modelBase64 = null;
+    document.getElementById('modelInput').value = '';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
 // GENERATE
 // ═══════════════════════════════════════════════════════════════
 
-function generatePrompt(productKey, styleKey, color) {
-  const product = PRODUCTS[productKey];
-  const style = STYLES[styleKey];
-  const template = style.templates[Math.floor(Math.random() * style.templates.length)];
-  const seed = Math.floor(Math.random() * 999999);
-  
-  const prompt = template
-    .replace(/\{desc\}/g, product.desc)
-    .replace(/\{name\}/g, product.fullName)
-    .replace(/\{color\}/g, color)
-    .replace(/\{material\}/g, product.material) + QUALITY_SUFFIX;
-  
-  return { prompt, seed, product: product.fullName, style: style.name, color, shopeeLink: product.shopeeLink };
-}
-
-function generate() {
-  const color = selectedColor || PRODUCTS[selectedProduct].colors[Math.floor(Math.random() * PRODUCTS[selectedProduct].colors.length)];
-  selectedColor = color;
-  renderColors();
-  
-  const result = generatePrompt(selectedProduct, selectedStyle, color);
-  currentPrompt = result.prompt;
-  currentSeed = result.seed;
-  
-  document.getElementById('resultTitle').textContent = `📸 ${result.product}`;
-  document.getElementById('resultStyle').textContent = result.style;
-  document.getElementById('resultColor').textContent = result.color;
-  document.getElementById('promptText').textContent = result.prompt;
-  document.getElementById('negativeText').textContent = NEGATIVE;
-  document.getElementById('seedVal').textContent = result.seed;
-  document.getElementById('resultCard').classList.add('show');
-  
-  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-function generateBatch() {
-  const colors = PRODUCTS[selectedProduct].colors;
-  const styleKeys = Object.keys(STYLES);
-  batchResults = [];
-  
-  for (let i = 0; i < 5; i++) {
-    const styleKey = styleKeys[i % styleKeys.length];
-    const color = colors[i % colors.length];
-    batchResults.push(generatePrompt(selectedProduct, styleKey, color));
+async function generate() {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    showError('Masukkan FAL.AI API key terlebih dahulu!');
+    return;
   }
   
-  const grid = document.getElementById('batchGrid');
-  grid.innerHTML = batchResults.map((r, i) => `
-    <div class="batch-item" onclick="showBatchItem(${i})">
-      <div class="top">
-        <span class="label">${STYLES[Object.keys(STYLES)[i % 6]].icon} ${r.style} — ${r.color}</span>
-        <span class="meta">🎲 ${r.seed}</span>
-      </div>
-      <div class="preview">${r.prompt.substring(0, 120)}...</div>
-    </div>
-  `).join('');
+  if (!garmentBase64) {
+    showError('Upload foto produk terlebih dahulu!');
+    return;
+  }
   
-  grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (!modelBase64) {
+    showError('Upload foto model terlebih dahulu!');
+    return;
+  }
+  
+  const model = document.getElementById('modelSelect').value;
+  
+  // UI states
+  hideError();
+  hideResult();
+  showProgress('Menyiapkan gambar...', 10);
+  document.getElementById('generateBtn').disabled = true;
+  
+  try {
+    // Step 1: Upload images to FAL storage
+    showProgress('Mengupload foto produk...', 20);
+    const garmentUrl = await uploadToFal(garmentBase64, apiKey);
+    
+    showProgress('Mengupload foto model...', 40);
+    const modelUrl = await uploadToFal(modelBase64, apiKey);
+    
+    // Step 2: Call virtual try-on API
+    showProgress('AI sedang memproses... (30-60 detik)', 60);
+    const result = await callVirtualTryOn(modelUrl, garmentUrl, model, apiKey);
+    
+    // Step 3: Show result
+    showProgress('Selesai!', 100);
+    setTimeout(() => {
+      hideProgress();
+      showResult(result);
+    }, 500);
+    
+  } catch (err) {
+    hideProgress();
+    showError('Error: ' + (err.message || 'Gagal generate gambar'));
+    console.error(err);
+  }
+  
+  document.getElementById('generateBtn').disabled = false;
 }
 
-function showBatchItem(index) {
-  const r = batchResults[index];
-  currentPrompt = r.prompt;
-  currentSeed = r.seed;
+async function uploadToFal(base64, apiKey) {
+  // Convert base64 to blob
+  const response = await fetch(base64);
+  const blob = await response.blob();
   
-  document.getElementById('resultTitle').textContent = `📸 ${r.product}`;
-  document.getElementById('resultStyle').textContent = r.style;
-  document.getElementById('resultColor').textContent = r.color;
-  document.getElementById('promptText').textContent = r.prompt;
-  document.getElementById('negativeText').textContent = NEGATIVE;
-  document.getElementById('seedVal').textContent = r.seed;
-  document.getElementById('resultCard').classList.add('show');
+  // Upload to FAL storage
+  const formData = new FormData();
+  formData.append('file', blob, 'image.png');
   
-  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  const uploadRes = await fetch('https://fal.run/api/storage/upload', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Key ' + apiKey,
+    },
+    body: formData,
+  });
+  
+  if (!uploadRes.ok) {
+    const err = await uploadRes.text();
+    throw new Error('Upload gagal: ' + err);
+  }
+  
+  const data = await uploadRes.json();
+  return data.url;
+}
+
+async function callVirtualTryOn(modelUrl, garmentUrl, model, apiKey) {
+  const desc = document.getElementById('garmentDesc').value.trim();
+  
+  // Use queue API for longer-running models
+  const queueRes = await fetch('https://queue.fal.run/' + model, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Key ' + apiKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model_image: modelUrl,
+      garment_image: garmentUrl,
+      garment_des: desc || 'clothing',
+    }),
+  });
+  
+  if (!queueRes.ok) {
+    const err = await queueRes.text();
+    throw new Error('API error: ' + err);
+  }
+  
+  const queueData = await queueRes.json();
+  const requestId = queueData.request_id;
+  
+  if (!requestId) {
+    throw new Error('No request ID returned');
+  }
+  
+  // Poll for result
+  let attempts = 0;
+  const maxAttempts = 60; // 60 * 2s = 120s max
+  
+  while (attempts < maxAttempts) {
+    await new Promise(r => setTimeout(r, 2000));
+    attempts++;
+    
+    const progress = 60 + (attempts / maxAttempts) * 35;
+    showProgress(`AI sedang memproses... (${attempts * 2}s)`, progress);
+    
+    const statusRes = await fetch('https://queue.fal.run/' + model + '/requests/' + requestId + '/status', {
+      headers: { 'Authorization': 'Key ' + apiKey },
+    });
+    
+    if (!statusRes.ok) continue;
+    
+    const statusData = await statusRes.json();
+    
+    if (statusData.status === 'COMPLETED') {
+      // Get the actual result
+      const resultRes = await fetch('https://queue.fal.run/' + model + '/requests/' + requestId, {
+        headers: { 'Authorization': 'Key ' + apiKey },
+      });
+      
+      const resultData = await resultRes.json();
+      
+      // FAL returns image URL in different fields depending on model
+      const imageUrl = resultData.image?.url || resultData.images?.[0]?.url || resultData.output?.image?.url;
+      
+      if (!imageUrl) throw new Error('No image in response');
+      return imageUrl;
+    }
+    
+    if (statusData.status === 'FAILED') {
+      throw new Error('Processing failed: ' + (statusData.error || 'Unknown error'));
+    }
+  }
+  
+  throw new Error('Timeout: processing took too long');
 }
 
 // ═══════════════════════════════════════════════════════════════
-// ACTIONS
+// UI HELPERS
 // ═══════════════════════════════════════════════════════════════
 
-function copyPrompt() {
-  navigator.clipboard.writeText(currentPrompt).then(() => showToast('Prompt copied! 📋'));
+function showProgress(text, percent) {
+  document.getElementById('progress').classList.add('show');
+  document.getElementById('progressText').textContent = text;
+  document.getElementById('progressFill').style.width = percent + '%';
 }
 
-function copyNegative() {
-  navigator.clipboard.writeText(NEGATIVE).then(() => showToast('Negative prompt copied! 🚫'));
+function hideProgress() {
+  document.getElementById('progress').classList.remove('show');
 }
 
-function generateImage() {
-  const encoded = encodeURIComponent(currentPrompt);
-  const url = `https://image.pollinations.ai/prompt/${encoded}?width=1024&height=1365&seed=${currentSeed}&model=flux&nologo=true&enhance=true`;
-  window.open(url, '_blank');
-  showToast('Opening image generator... 🖼️');
+function showResult(imageUrl) {
+  resultImageUrl = imageUrl;
+  document.getElementById('resultImage').src = imageUrl;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideResult() {
+  document.getElementById('result').classList.remove('show');
+}
+
+function showError(msg) {
+  const err = document.getElementById('error');
+  err.textContent = msg;
+  err.classList.add('show');
+}
+
+function hideError() {
+  document.getElementById('error').classList.remove('show');
+}
+
+function downloadResult() {
+  if (!resultImageUrl) return;
+  const a = document.createElement('a');
+  a.href = resultImageUrl;
+  a.download = 'affiliate-fit-' + Date.now() + '.png';
+  a.target = '_blank';
+  a.click();
 }
 
 function showToast(msg) {

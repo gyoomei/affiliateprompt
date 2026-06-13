@@ -1,61 +1,57 @@
-# 🪄 AffiliatePrompt
+# 👗 AffiliateFit
 
-> One-click AI prompt generator for affiliate product photography. Generate professional prompts for product + model combination images.
+> Upload foto produk + foto model → AI gabungkan jadi foto profesional model pakai produk affiliate kamu
 
-## ✨ Features
+## ✨ Fitur
 
-- 📦 **3 Products** — ALANA BERGO, Pashmina Rayon, Bergo Zalika
-- 🎨 **6 Styles** — Lifestyle, Studio, Casual, Outdoor, Minimalist, Editorial
-- 🎯 **Smart Prompts** — Optimized for Indonesian hijab fashion photography
-- 📋 **Copy-Paste Ready** — One click to copy prompt to clipboard
-- ⚡ **Batch Generate** — 5 prompts at once with different styles
-- 🚫 **Negative Prompts** — Built-in quality control
-- 📱 **Mobile Friendly** — Works on phone, tablet, desktop
-- 🌙 **Dark Mode** — Easy on the eyes
-- 🔑 **Zero API Key** — 100% client-side, no backend needed
+- 📸 **Upload foto produk** — Hijab, bergo, pashmina, baju, dll
+- 👤 **Upload foto model** — Foto orang yang mau dipakaikan produk
+- 🤖 **AI Virtual Try-On** — FAL.AI CAT-VTON / IDM-VTON
+- ⬇️ **Download hasil** — Langsung pakai di Threads/Instagram
+- 🔑 **API key sendiri** — $5 free credits di FAL.AI (~100 gambar)
+- 📱 **Mobile friendly** — Bisa dipakai dari HP
+- 🌙 **Dark mode** — Easy on the eyes
 
-## 🚀 Usage
+## 🪄 Cara Kerja
 
-1. Select a **product** (ALANA BERGO, Pashmina Rayon, Bergo Zalika)
-2. Choose a **style** (Lifestyle, Studio, Casual, Outdoor, Minimalist, Editorial)
-3. Pick a **color** (hitam, dusty pink, navy, etc.)
-4. Click **Generate Magic Prompt**
-5. Copy the prompt and paste into any image generator:
-   - [Pollinations.ai](https://pollinations.ai) (Free)
-   - [Midjourney](https://midjourney.com)
-   - [DALL-E / ChatGPT](https://chat.openai.com)
-   - [Leonardo.ai](https://leonardo.ai) (Free tier)
-   - [Ideogram.ai](https://ideogram.ai) (Free)
-   - Stable Diffusion (local or cloud)
+1. **Upload foto produk** dari Shopee (hijab, bergo, pashmina, dll)
+2. **Upload foto model** (foto orang yang mau dipakaikan produk)
+3. **Klik Generate** → AI gabungkan otomatis (30-60 detik)
+4. **Download hasilnya** → Pakai di Threads/Instagram
 
-## 📸 Prompt Styles
+## 🔑 Setup
 
-| Style | Best For | Example |
-|-------|----------|---------|
-| ☕ Lifestyle | Instagram posts, Stories | Model at cafe, natural light |
-| 📸 Studio | Product catalog, Shopee listing | Clean background, professional |
-| 🛍️ Casual | TikTok, casual posts | Daily activities, relatable |
-| 🌿 Outdoor | Lifestyle content | Nature, garden, adventure |
-| ⬜ Minimalist | E-commerce, professional | Clean, focus on product |
-| 📰 Editorial | Premium content, brand building | Magazine-quality, high fashion |
+1. Daftar di [fal.ai](https://fal.ai) (gratis)
+2. Dapatkan API key ($5 free credits)
+3. Masukkan key di web app
+4. Generate!
+
+## 🤖 Model yang Tersedia
+
+| Model | Harga | Kelebihan |
+|-------|-------|-----------|
+| CAT-VTON | ~$0.05/gambar | Cepat, hasil bagus |
+| IDM-VTON | ~$0.10/gambar | Kualitas lebih tinggi |
 
 ## 🛠️ Local Development
 
 ```bash
-# No build needed — just open index.html
+# Langsung buka index.html
 open index.html
 
-# Or serve locally
+# Atau serve locally
 python3 -m http.server 8080
 ```
 
-## 📦 Products
+## 📦 Integrasi dengan Threads Bot
 
-| Product | Type | Link |
-|---------|------|------|
-| ALANA BERGO TieBymin | Bergo Instant | [Shopee](https://s.shopee.co.id/gNZ2aAfcz) |
-| Pashmina Kaos Rayon | Pashmina | [Shopee](https://s.shopee.co.id/8ATZzrWOqj) |
-| Hijab Bergo Zalika | Bergo | [Shopee](https://s.shopee.co.id/1BJpf8OtDy) |
+Hasil gambar bisa langsung di-attach ke Threads comments:
+
+```python
+# Download gambar dari AffiliateFit
+# Simpan ke ~/threads-bot/product-images/
+# Bot akan otomatis attach ke comment
+```
 
 ## 📄 License
 
